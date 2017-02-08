@@ -1,0 +1,14 @@
+DEF:api_lazlo_PT1M_GET_api_mobile__countryCode__cart_size_requests_max='/var/groupon/ganglia/rrds/api_lazlo-snc1/__SummaryInfo__/api_lazlo_PT1M_GET_api_mobile__countryCode__cart_size_requests_max.rrd':'sum':AVERAGE
+DEF:api_lazlo_PT1M_GET_api_mobile__countryCode__cart_size_requests_tp99_9='/var/groupon/ganglia/rrds/api_lazlo-snc1/__SummaryInfo__/api_lazlo_PT1M_GET_api_mobile__countryCode__cart_size_requests_tp99_9.rrd':'sum':AVERAGE
+DEF:api_lazlo_PT1M_GET_api_mobile__countryCode__cart_size_requests_tp99='/var/groupon/ganglia/rrds/api_lazlo-snc1/__SummaryInfo__/api_lazlo_PT1M_GET_api_mobile__countryCode__cart_size_requests_tp99.rrd':'sum':AVERAGE
+DEF:api_lazlo_PT1M_GET_api_mobile__countryCode__cart_size_requests_tp95='/var/groupon/ganglia/rrds/api_lazlo-snc1/__SummaryInfo__/api_lazlo_PT1M_GET_api_mobile__countryCode__cart_size_requests_tp95.rrd':'sum':AVERAGE
+CDEF:max_ms=api_lazlo_PT1M_GET_api_mobile__countryCode__cart_size_requests_max,1000,*
+CDEF:tp99_9_ms=api_lazlo_PT1M_GET_api_mobile__countryCode__cart_size_requests_tp99_9,1000,*
+CDEF:tp99_ms=api_lazlo_PT1M_GET_api_mobile__countryCode__cart_size_requests_tp99,1000,*
+CDEF:tp95_ms=api_lazlo_PT1M_GET_api_mobile__countryCode__cart_size_requests_tp95,1000,*
+AREA:max_ms#E6EFDCFF:'tp100'
+AREA:tp99_9_ms#83B14EFF:'tp99.9'
+AREA:tp99_ms#4E6A2FFF:'tp99'
+AREA:tp95_ms#1A2310FF:'tp95'
+--units=si
+--logarithmic

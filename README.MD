@@ -7,6 +7,6 @@ Includes support for:
 - RRD
 
 
-###Graphite-Wavefront
+###graphite-wavefront
 Python script which can be used to reach whisper data files and upload all metrics data
 to Wavefront.

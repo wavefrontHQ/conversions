@@ -6,4 +6,27 @@ This is a framework, and implementation to convert other metrics monitoring solu
 ##Supported Source Platforms
 Currently there is support for the following platforms to be converted into Wavefront.  More platforms will be added in the future.
 - RRD
+- Grapher
 
+
+##Framework Architecture
+This framework is meant to be layered in that a higher level converter can use the facilities of a lower level one as needed. The Grapher converter makes use of RRD since the internal tooling of Grapher is based on RRD chart definitions and tooling. 
+
+
+##General Usage
+The main Convert class part of the Core package takes 2 main arguments when run via the command line.
+1) Path to a properties file
+2) The item to convert
+
+`java -cp wavefront-convert.jar com.wavefront.labs.convert.Convert <properties-file> <item-to-convert>`
+
+
+##Properties
+The following properties are part of the Core framework are are required for all conversion types
+- `convert.converter`: Class which inherits from com.wavefront.labs.convert.Converter which will do the conversion
+- `convert.generator`: Class which inherits from com.wavefront.labs.convert.Generator
+- `convert.expression.builder`: Class which inherits from com.wavefront.labs.convert.ExpressionBuilder to manipulate metric name
+- `convert.publish.url`: URL to your Wavefront instance (ie: https://try.wavefront.com)
+- `convert.publish.token`: Your API token for Wavefront
+
+Individual converters may also include additional properties.  Each converter will describe their respective properties.

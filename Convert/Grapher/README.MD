@@ -1,16 +1,16 @@
-#Grapher Converter
+# Grapher Converter
 
 Grapher is a proprietary monitoring system that depends on RRD for it's tooling, so this converter will make calls to the RRD converter to convert all chart definitions. The Grapher converter will be used to convert the dashboard definitions which contains the charts.
 
 This converter will create Dashboards and Alerts from Grapher dashboard definitions. The Alerts are used to create events on charts when specific conditions are reached. See below about what chart definitions are used to create the alerts.
 
-##Grapher Converter Usage
+## Grapher Converter Usage
 The _item-to-convert_ is a JSON definition of the Grapher dashboards that are to be converted.  This JSON file can be produced by the Grapher database.
 
 `java -cp wavefront-convert.jar com.wavefront.labs.convert.Convert <properties-file> <item-to-convert>`
 
             
-##Grapher Properties
+## Grapher Properties
 Core properties should have the following values
 - `convert.converter=com.wavefront.labs.convert.input.grapher.GrapherConverter`
 - `convert.generator=com.wavefront.labs.convert.output.WavefrontGenerator`

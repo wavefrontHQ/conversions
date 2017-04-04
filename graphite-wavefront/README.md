@@ -1,5 +1,5 @@
-#how to use?
-# this is modifiying whisper-fetch to read each whisper file and sending it to wavefront proxy. I'm using port 2003 because i'm too lazy to create a ACL. Please change the port as well.
+# how to use?
+### this is modifiying whisper-fetch to read each whisper file and sending it to wavefront proxy. I'm using port 2003 because i'm too lazy to create a ACL. Please change the port as well.
 
 
 1) find all whisper files and append to a list:

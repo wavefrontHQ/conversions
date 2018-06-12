@@ -6,7 +6,7 @@ This is a framework, and implementation to convert other metrics monitoring solu
 ## Supported Source Platforms
 Currently there is support for the following platforms to be converted into Wavefront.  More platforms will be added in the future.
 - RRD
-- Grapher
+- [Grapher](docs/grapher.md)
 - Datadog
 
 

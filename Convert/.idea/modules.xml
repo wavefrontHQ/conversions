@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Core/Core.iml" filepath="$PROJECT_DIR$/Core/Core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Grapher/Grapher.iml" filepath="$PROJECT_DIR$/Grapher/Grapher.iml" />
-      <module fileurl="file://$PROJECT_DIR$/RRD/RRD.iml" filepath="$PROJECT_DIR$/RRD/RRD.iml" />
-      <module fileurl="file://$PROJECT_DIR$/_Test/_Test.iml" filepath="$PROJECT_DIR$/_Test/_Test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../wf-java-sdk/wf-java-sdk.iml" filepath="$PROJECT_DIR$/../wf-java-sdk/wf-java-sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Convert.iml" filepath="$PROJECT_DIR$/Convert.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../wavefront-java-sdk/wavefront-java-sdk.iml" filepath="$PROJECT_DIR$/../wavefront-java-sdk/wavefront-java-sdk.iml" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,37 @@
+maps:
+  metric:
+    metric.name.orig: new.metric.name
+    another.metric_name: someting.else
+
+  tagName:
+    some-tag-name: new-name
+
+  tagValue:
+    production-tag-value: prod
+
+
+rules:
+  metric:
+    - rule    : something
+      match   : '^sample.\.cpu\..*$'
+      search  : '^(sample\.)(cpu\..*)$'
+      replace : '$2'
+
+    - rule    : something else
+      match   : '^sample2\.load\..*$'
+      search  : '^(sample2\.)load\.(.*)$'
+      replace : 'load.$1$2'
+
+  tagName:
+    - rule    : something for tag names ... does source tags too
+      match   : '^sample-application-.*$'
+      search  : '^sample-application-(.*)$'
+      replace : 'app-$1'
+
+  tagValue:
+    # tag values of "value-us-west-2a" and "value-us-east-1b" will become "us-west-2" and "us-east-1" respectively
+    - rule    : something
+      match   : '^value-us-(west|east)-(1|2)(a|b|c)$'
+      search  : '^value-us-(west|east)-(.*)'
+      replace : 'us-$1-$2'
+

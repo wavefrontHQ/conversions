@@ -7,6 +7,11 @@ This is a framework, and implementation to convert other metrics monitoring solu
 Currently there is support for the following platforms to be converted into Wavefront.  More platforms will be added in the future.
 - RRD
 - Grapher
+- Datadog
+
+
+## Dependencies
+Depends on the Wavefront Java SDK which can be generated using swagger-codegen. Sample config and script to generate can be found in swagger folder.
 
 
 ## Framework Architecture

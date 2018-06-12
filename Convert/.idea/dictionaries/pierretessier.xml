@@ -2,8 +2,11 @@
   <dictionary name="pierretessier">
     <words>
       <w>arithmetics</w>
+      <w>datadog</w>
+      <w>grafana</w>
       <w>grapher</w>
       <w>summarization</w>
+      <w>timeboard</w>
     </words>
   </dictionary>
 </component>

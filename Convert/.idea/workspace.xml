@@ -35,8 +35,20 @@
       <file leaf-file-name="GrafanaConverter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/GrafanaConverter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="67" column="70" selection-start-line="67" selection-start-column="70" selection-end-line="67" selection-end-column="70" />
+            <state relative-caret-position="-255">
+              <caret line="123" column="12" lean-forward="true" selection-start-line="123" selection-start-column="12" selection-end-line="123" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NCP Main Dashboard - PILOT-1529519151146.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test_resources/grafana/NCP Main Dashboard - PILOT-1529519151146.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="347">
+              <caret line="146" column="29" selection-start-line="146" selection-start-column="15" selection-end-line="146" selection-end-column="34" />
+              <folding>
+                <element signature="e#1768#3808#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -44,17 +56,115 @@
       <file leaf-file-name="Convert.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/Convert.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="57" column="35" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
+            <state relative-caret-position="420">
+              <caret line="67" column="17" selection-start-line="67" selection-start-column="17" selection-end-line="67" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VLDB Event Loading.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test_resources/grafana/VLDB Event Loading.json">
+      <file leaf-file-name="VLDB Replication-1529520048654.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test_resources/grafana/VLDB Replication-1529520048654.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="753" column="12" lean-forward="true" selection-start-line="753" selection-start-column="12" selection-end-line="753" selection-end-column="12" />
+            <state relative-caret-position="338">
+              <caret line="189" column="14" selection-start-line="189" selection-start-column="14" selection-end-line="189" selection-end-column="14" />
+              <folding>
+                <element signature="e#16#203#0" />
+                <element signature="e#221#557#0" />
+                <element signature="n#!!block;n#annotations#0;n#!!top" />
+                <element signature="e#1112#1185#0" />
+                <element signature="e#1218#1441#0" />
+                <element signature="e#1669#2526#0" />
+                <element signature="e#1679#1819#0" />
+                <element signature="e#1829#1889#0" />
+                <element signature="e#1899#1964#0" />
+                <element signature="e#1974#2128#0" />
+                <element signature="e#2138#2225#0" />
+                <element signature="e#2235#2430#0" />
+                <element signature="e#2440#2518#0" />
+                <element signature="e#3906#3993#0" />
+                <element signature="e#4033#4156#0" />
+                <element signature="e#4173#4509#0" />
+                <element signature="e#4183#4339#0" />
+                <element signature="e#4349#4501#0" />
+                <element signature="e#4688#4761#0" />
+                <element signature="e#4794#5017#0" />
+                <element signature="e#5245#6190#0" />
+                <element signature="e#5255#5395#0" />
+                <element signature="e#5405#5465#0" />
+                <element signature="e#5475#5540#0" />
+                <element signature="e#5550#5704#0" />
+                <element signature="e#5714#5801#0" />
+                <element signature="e#5811#6006#0" />
+                <element signature="e#6016#6094#0" />
+                <element signature="e#6104#6182#0" />
+                <element signature="e#6284#7383#0" />
+                <element signature="e#6294#6544#0" />
+                <element signature="e#6554#6801#0" />
+                <element signature="e#6811#7375#0" />
+                <element signature="e#7524#7611#0" />
+                <element signature="e#7651#7774#0" />
+                <element signature="e#7791#8127#0" />
+                <element signature="e#7801#7957#0" />
+                <element signature="e#7967#8119#0" />
+                <element signature="e#8306#8380#0" />
+                <element signature="e#8413#8636#0" />
+                <element signature="e#8864#9989#0" />
+                <element signature="e#8874#9014#0" />
+                <element signature="e#9024#9084#0" />
+                <element signature="e#9094#9159#0" />
+                <element signature="e#9169#9323#0" />
+                <element signature="e#9333#9420#0" />
+                <element signature="e#9430#9625#0" />
+                <element signature="e#9635#9713#0" />
+                <element signature="e#9723#9801#0" />
+                <element signature="e#9811#9897#0" />
+                <element signature="e#9907#9981#0" />
+                <element signature="e#10083#10240#0" />
+                <element signature="e#10093#10232#0" />
+                <element signature="e#10377#10464#0" />
+                <element signature="e#10504#10627#0" />
+                <element signature="e#10644#10978#0" />
+                <element signature="e#10654#10807#0" />
+                <element signature="e#10817#10970#0" />
+                <element signature="e#11157#11232#0" />
+                <element signature="e#11265#11488#0" />
+                <element signature="e#11716#12661#0" />
+                <element signature="e#11726#11866#0" />
+                <element signature="e#11876#11936#0" />
+                <element signature="e#11946#12011#0" />
+                <element signature="e#12021#12175#0" />
+                <element signature="e#12185#12272#0" />
+                <element signature="e#12282#12477#0" />
+                <element signature="e#12487#12565#0" />
+                <element signature="e#12575#12653#0" />
+                <element signature="e#12755#13545#0" />
+                <element signature="e#12765#13010#0" />
+                <element signature="e#13020#13267#0" />
+                <element signature="e#13277#13537#0" />
+                <element signature="e#13683#13770#0" />
+                <element signature="e#13810#13933#0" />
+                <element signature="e#13950#14286#0" />
+                <element signature="e#13960#14116#0" />
+                <element signature="e#14126#14278#0" />
+                <element signature="n#!!block;n#templating#0;n#!!top" />
+                <element signature="n#!!block;n#time#0;n#!!top" />
+                <element signature="n#!!block;n#timepicker#0;n#!!top" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GrafanaDashboard.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaDashboard.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
+              <folding>
+                <element signature="e#1139#1140#0" expanded="true" />
+                <element signature="e#1164#1165#0" expanded="true" />
+                <element signature="e#1215#1216#0" expanded="true" />
+                <element signature="e#1252#1253#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -62,13 +172,120 @@
       <file leaf-file-name="GrafanaPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="23" />
+            <state relative-caret-position="200">
+              <caret line="36" column="22" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
               <folding>
-                <element signature="e#1201#1202#0" expanded="true" />
-                <element signature="e#1223#1224#0" expanded="true" />
-                <element signature="e#1265#1266#0" expanded="true" />
-                <element signature="e#1296#1297#0" expanded="true" />
+                <element signature="e#1122#1123#0" expanded="true" />
+                <element signature="e#1141#1142#0" expanded="true" />
+                <element signature="e#1181#1182#0" expanded="true" />
+                <element signature="e#1206#1207#0" expanded="true" />
+                <element signature="e#1237#1238#0" expanded="true" />
+                <element signature="e#1257#1258#0" expanded="true" />
+                <element signature="e#1299#1300#0" expanded="true" />
+                <element signature="e#1326#1327#0" expanded="true" />
+                <element signature="e#1360#1361#0" expanded="true" />
+                <element signature="e#1384#1385#0" expanded="true" />
+                <element signature="e#1433#1434#0" expanded="true" />
+                <element signature="e#1468#1469#0" expanded="true" />
+                <element signature="e#1497#1498#0" expanded="true" />
+                <element signature="e#1519#1520#0" expanded="true" />
+                <element signature="e#1561#1562#0" expanded="true" />
+                <element signature="e#1592#1593#0" expanded="true" />
+                <element signature="e#1627#1628#0" expanded="true" />
+                <element signature="e#1652#1653#0" expanded="true" />
+                <element signature="e#1703#1704#0" expanded="true" />
+                <element signature="e#1740#1741#0" expanded="true" />
+                <element signature="e#1772#1773#0" expanded="true" />
+                <element signature="e#1793#1794#0" expanded="true" />
+                <element signature="e#1837#1838#0" expanded="true" />
+                <element signature="e#1866#1867#0" expanded="true" />
+                <element signature="e#1895#1896#0" expanded="true" />
+                <element signature="e#1933#1934#0" expanded="true" />
+                <element signature="e#1962#1963#0" expanded="true" />
+                <element signature="e#2000#2001#0" expanded="true" />
+                <element signature="e#2042#2043#0" expanded="true" />
+                <element signature="e#2062#2063#0" expanded="true" />
+                <element signature="e#2115#2116#0" expanded="true" />
+                <element signature="e#2142#2143#0" expanded="true" />
+                <element signature="e#2176#2177#0" expanded="true" />
+                <element signature="e#2200#2201#0" expanded="true" />
+                <element signature="e#2250#2251#0" expanded="true" />
+                <element signature="e#2285#2286#0" expanded="true" />
+                <element signature="e#2336#2337#0" expanded="true" />
+                <element signature="e#2360#2361#0" expanded="true" />
+                <element signature="e#2426#2427#0" expanded="true" />
+                <element signature="e#2461#2462#0" expanded="true" />
+                <element signature="e#2490#2491#0" expanded="true" />
+                <element signature="e#2509#2510#0" expanded="true" />
+                <element signature="e#2549#2550#0" expanded="true" />
+                <element signature="e#2574#2575#0" expanded="true" />
+                <element signature="e#2628#2629#0" expanded="true" />
+                <element signature="e#2649#2650#0" expanded="true" />
+                <element signature="e#2715#2716#0" expanded="true" />
+                <element signature="e#2744#2745#0" expanded="true" />
+                <element signature="e#2773#2774#0" expanded="true" />
+                <element signature="e#2792#2793#0" expanded="true" />
+                <element signature="e#2831#2832#0" expanded="true" />
+                <element signature="e#2856#2857#0" expanded="true" />
+                <element signature="e#2907#2908#0" expanded="true" />
+                <element signature="e#2926#2927#0" expanded="true" />
+                <element signature="e#2987#2988#0" expanded="true" />
+                <element signature="e#3012#3013#0" expanded="true" />
+                <element signature="e#3058#3059#0" expanded="true" />
+                <element signature="e#3082#3083#0" expanded="true" />
+                <element signature="e#3143#3144#0" expanded="true" />
+                <element signature="e#3178#3179#0" expanded="true" />
+                <element signature="e#3206#3207#0" expanded="true" />
+                <element signature="e#3224#3225#0" expanded="true" />
+                <element signature="e#3261#3262#0" expanded="true" />
+                <element signature="e#3284#3285#0" expanded="true" />
+                <element signature="e#3400#3401#0" expanded="true" />
+                <element signature="e#3417#3418#0" expanded="true" />
+                <element signature="e#3446#3447#0" expanded="true" />
+                <element signature="e#3465#3466#0" expanded="true" />
+                <element signature="e#3488#3489#0" expanded="true" />
+                <element signature="e#3505#3506#0" expanded="true" />
+                <element signature="e#3534#3535#0" expanded="true" />
+                <element signature="e#3553#3554#0" expanded="true" />
+                <element signature="e#3576#3577#0" expanded="true" />
+                <element signature="e#3593#3594#0" expanded="true" />
+                <element signature="e#3622#3623#0" expanded="true" />
+                <element signature="e#3641#3642#0" expanded="true" />
+                <element signature="e#3664#3665#0" expanded="true" />
+                <element signature="e#3681#3682#0" expanded="true" />
+                <element signature="e#3710#3711#0" expanded="true" />
+                <element signature="e#3729#3730#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NG Health - Health Workers-1529519807417.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test_resources/grafana/NG Health - Health Workers-1529519807417.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="206">
+              <caret line="32" column="11" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GrafanaPanelTarget.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanelTarget.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="43" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GrafanaPanelYAxis.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanelYAxis.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="561">
+              <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+              <folding>
+                <element signature="e#257#258#0" expanded="true" />
+                <element signature="e#277#278#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -77,93 +294,8 @@
       <file leaf-file-name="GrafanaPanelLegend.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanelLegend.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="4" column="36" lean-forward="true" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
-              <folding>
-                <element signature="e#482#483#0" expanded="true" />
-                <element signature="e#508#509#0" expanded="true" />
-                <element signature="e#562#563#0" expanded="true" />
-                <element signature="e#601#602#0" expanded="true" />
-                <element signature="e#628#629#0" expanded="true" />
-                <element signature="e#645#646#0" expanded="true" />
-                <element signature="e#681#682#0" expanded="true" />
-                <element signature="e#702#703#0" expanded="true" />
-                <element signature="e#733#734#0" expanded="true" />
-                <element signature="e#754#755#0" expanded="true" />
-                <element signature="e#798#799#0" expanded="true" />
-                <element signature="e#827#828#0" expanded="true" />
-                <element signature="e#854#855#0" expanded="true" />
-                <element signature="e#871#872#0" expanded="true" />
-                <element signature="e#907#908#0" expanded="true" />
-                <element signature="e#928#929#0" expanded="true" />
-                <element signature="e#955#956#0" expanded="true" />
-                <element signature="e#972#973#0" expanded="true" />
-                <element signature="e#1008#1009#0" expanded="true" />
-                <element signature="e#1029#1030#0" expanded="true" />
-                <element signature="e#1062#1063#0" expanded="true" />
-                <element signature="e#1085#1086#0" expanded="true" />
-                <element signature="e#1133#1134#0" expanded="true" />
-                <element signature="e#1166#1167#0" expanded="true" />
-                <element signature="e#1194#1195#0" expanded="true" />
-                <element signature="e#1212#1213#0" expanded="true" />
-                <element signature="e#1250#1251#0" expanded="true" />
-                <element signature="e#1273#1274#0" expanded="true" />
-                <element signature="e#1302#1303#0" expanded="true" />
-                <element signature="e#1321#1322#0" expanded="true" />
-                <element signature="e#1361#1362#0" expanded="true" />
-                <element signature="e#1386#1387#0" expanded="true" />
-                <element signature="e#1416#1417#0" expanded="true" />
-                <element signature="e#1436#1437#0" expanded="true" />
-                <element signature="e#1478#1479#0" expanded="true" />
-                <element signature="e#1505#1506#0" expanded="true" />
-                <element signature="e#1537#1538#0" expanded="true" />
-                <element signature="e#1559#1560#0" expanded="true" />
-                <element signature="e#1605#1606#0" expanded="true" />
-                <element signature="e#1636#1637#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Ganglia Perf Charts and Alerts.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test_resources/grafana/Ganglia Perf Charts and Alerts.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="44" column="14" selection-start-line="44" selection-start-column="3" selection-end-line="44" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GrafanaDashboard.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaDashboard.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="40" column="36" selection-start-line="40" selection-start-column="36" selection-end-line="40" selection-end-column="36" />
-              <folding>
-                <element signature="e#771#772#0" expanded="true" />
-                <element signature="e#791#792#0" expanded="true" />
-                <element signature="e#860#861#0" expanded="true" />
-                <element signature="e#887#888#0" expanded="true" />
-                <element signature="e#942#943#0" expanded="true" />
-                <element signature="e#967#968#0" expanded="true" />
-                <element signature="e#1038#1039#0" expanded="true" />
-                <element signature="e#1075#1076#0" expanded="true" />
-                <element signature="e#1164#1165#0" expanded="true" />
-                <element signature="e#1215#1216#0" expanded="true" />
-                <element signature="e#1252#1253#0" expanded="true" />
-                <element signature="e#1117#1118#0" expanded="true" />
-                <element signature="e#1137#1138#0" expanded="true" />
-                <element signature="e#1190#1191#0" expanded="true" />
-                <element signature="e#1217#1218#0" expanded="true" />
-                <element signature="e#1246#1247#0" expanded="true" />
-                <element signature="e#1265#1266#0" expanded="true" />
-                <element signature="e#1304#1305#0" expanded="true" />
-                <element signature="e#1329#1330#0" expanded="true" />
-                <element signature="e#1356#1357#0" expanded="true" />
-                <element signature="e#1373#1374#0" expanded="true" />
-                <element signature="e#1408#1409#0" expanded="true" />
-                <element signature="e#1429#1430#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="85">
+              <caret line="5" selection-start-line="5" selection-end-line="5" />
             </state>
           </provider>
         </entry>
@@ -275,8 +407,6 @@
         <option value="$PROJECT_DIR$/docs/grapher.md" />
         <option value="$PROJECT_DIR$/README.MD" />
         <option value="$PROJECT_DIR$/src/com/wavefront/labs/convert/SimpleExpressionBuilder.java" />
-        <option value="$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanelYAxis.java" />
-        <option value="$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanelTarget.java" />
         <option value="$PROJECT_DIR$/grafana.properties" />
         <option value="$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/datadog/DatadogApiConverter.java" />
         <option value="$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/datadog/DatadogTimeboardConverter.java" />
@@ -286,10 +416,12 @@
         <option value="$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grapher/GrapherChartConverter.java" />
         <option value="$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grapher/GrapherRRDConverter.java" />
         <option value="$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grapher/GrapherDashboardConverter.java" />
-        <option value="$PROJECT_DIR$/src/com/wavefront/labs/convert/Convert.java" />
-        <option value="$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanel.java" />
         <option value="$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanelLegend.java" />
+        <option value="$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanelTarget.java" />
+        <option value="$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanelYAxis.java" />
+        <option value="$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanel.java" />
         <option value="$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaDashboard.java" />
+        <option value="$PROJECT_DIR$/src/com/wavefront/labs/convert/Convert.java" />
         <option value="$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/GrafanaConverter.java" />
       </list>
     </option>
@@ -332,11 +464,10 @@
     <navigator proportions="" version="1">
       <flattenPackages ProjectPane="false" />
       <hideEmptyPackages ProjectPane="true" />
-      <autoscrollFromSource ProjectPane="true" />
+      <autoscrollFromSource ProjectPane="false" />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -431,30 +562,6 @@
             <path>
               <item name="Convert" type="b2602c69:ProjectViewProjectNode" />
               <item name="Convert" type="462c0819:PsiDirectoryNode" />
-              <item name="test_converted" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Convert" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Convert" type="462c0819:PsiDirectoryNode" />
-              <item name="test_converted" type="462c0819:PsiDirectoryNode" />
-              <item name="datadog" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Convert" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Convert" type="462c0819:PsiDirectoryNode" />
-              <item name="test_converted" type="462c0819:PsiDirectoryNode" />
-              <item name="grafana" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Convert" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Convert" type="462c0819:PsiDirectoryNode" />
-              <item name="test_converted" type="462c0819:PsiDirectoryNode" />
-              <item name="grafana" type="462c0819:PsiDirectoryNode" />
-              <item name="dashboards" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Convert" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Convert" type="462c0819:PsiDirectoryNode" />
               <item name="test_resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -473,6 +580,7 @@
         <option name="show-excluded-files" value="false" />
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -495,6 +603,9 @@
     <property name="settings.editor.selected.configurable" value="editing.templates" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.wavefront.labs.convert.input.datadog.models" />
+    </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="com.wavefront.labs.convert.input.grapher" />
       <recent name="com.wavefront.labs.converters.rrd.model.graph" />
@@ -517,13 +628,6 @@
       <recent name="com.wavefront.labs.converters" />
       <recent name="com.wavefront.labs" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/.." />
-      <recent name="$PROJECT_DIR$/../CT" />
-      <recent name="$PROJECT_DIR$/Convert/docs" />
-      <recent name="$PROJECT_DIR$/Convert/test_resources/rrd" />
-      <recent name="$PROJECT_DIR$/Convert/test_resources/grapher" />
-    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.wavefront.labs.convert" />
       <recent name="com.wavefront.labs.convert.input.datadog.query.functions" />
@@ -533,13 +637,17 @@
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/test_resources/grafana" />
+      <recent name="$PROJECT_DIR$/test_converted/grafana/dashboards" />
       <recent name="$PROJECT_DIR$/swagger" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/Datadog" />
-      <recent name="$PROJECT_DIR$/Grafana" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.wavefront.labs.convert.input.datadog.models" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test_resources/grafana" />
+      <recent name="$PROJECT_DIR$/test_resources/grafana/tmp" />
+      <recent name="$PROJECT_DIR$/test_resources/grafana/exception" />
+      <recent name="$PROJECT_DIR$/.." />
+      <recent name="$PROJECT_DIR$/../CT" />
     </key>
   </component>
   <component name="Regex">
@@ -912,7 +1020,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="11" weight="0.3292683" />
@@ -925,18 +1033,18 @@
       <window_info id="Maven Projects" order="1" sideWeight="0.50101835" side_tool="true" weight="0.29541865" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.44704685" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.28054863" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.40224034" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49898168" visible="true" weight="0.29541865" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49898168" visible="true" weight="0.30114448" />
       <window_info anchor="right" id="Docker" order="8" show_stripe_button="false" weight="0.32950193" />
       <window_info anchor="right" id="Database" order="5" show_stripe_button="false" weight="0.32960597" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.35437882" />
-      <window_info anchor="right" id="SciView" order="6" show_stripe_button="false" weight="0.32960597" />
-      <window_info id="Structure" order="5" sideWeight="0.49898168" weight="0.24960506" />
+      <window_info anchor="right" id="SciView" order="6" weight="0.32960597" />
+      <window_info id="Structure" order="5" sideWeight="0.49898168" side_tool="true" weight="0.24960506" />
       <window_info anchor="right" id="Ant Build" order="1" show_stripe_button="false" weight="0.24973376" />
       <window_info id="Favorites" order="3" sideWeight="0.50101835" side_tool="true" weight="0.24960506" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49733758" weight="0.38696536" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49733758" weight="0.38653368" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -969,7 +1077,7 @@
           <option name="timeStamp" value="74" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="200" />
+      <option name="time" value="201" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -977,55 +1085,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test/com/wavefront/labs/convert/converter/datadog/DatadogConverterTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../wavefront-java-sdk/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="28" column="52" lean-forward="true" selection-start-line="28" selection-start-column="52" selection-end-line="28" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test_resources/datadog/datadog_timeboard.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="71" lean-forward="true" selection-start-line="14" selection-start-column="71" selection-end-line="14" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/name-processor.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="31" column="57" selection-start-line="31" selection-start-column="57" selection-end-line="31" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/datadog-name-processor.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="68" lean-forward="true" selection-start-line="17" selection-start-column="68" selection-end-line="17" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/name/NameProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/name/NameRule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/datadog/models/DatadogGraphDefinition.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="265">
@@ -1130,21 +1189,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaDashboardRow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaDashboardRow.java" />
     <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/DefaultExpressionBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="754">
           <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="16" />
-          <folding>
-            <element signature="e#1342#1343#0" expanded="true" />
-            <element signature="e#1399#1400#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1152,38 +1201,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanelYAxis.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="31" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
-          <folding>
-            <element signature="e#278#279#0" expanded="true" />
-            <element signature="e#319#320#0" expanded="true" />
-            <element signature="e#346#347#0" expanded="true" />
-            <element signature="e#375#376#0" expanded="true" />
-            <element signature="e#394#395#0" expanded="true" />
-            <element signature="e#433#434#0" expanded="true" />
-            <element signature="e#458#459#0" expanded="true" />
-            <element signature="e#486#487#0" expanded="true" />
-            <element signature="e#507#508#0" expanded="true" />
-            <element signature="e#547#548#0" expanded="true" />
-            <element signature="e#576#577#0" expanded="true" />
-            <element signature="e#603#604#0" expanded="true" />
-            <element signature="e#620#621#0" expanded="true" />
-            <element signature="e#655#656#0" expanded="true" />
-            <element signature="e#676#677#0" expanded="true" />
-            <element signature="e#703#704#0" expanded="true" />
-            <element signature="e#720#721#0" expanded="true" />
-            <element signature="e#755#756#0" expanded="true" />
-            <element signature="e#776#777#0" expanded="true" />
-            <element signature="e#804#805#0" expanded="true" />
-            <element signature="e#822#823#0" expanded="true" />
-            <element signature="e#860#861#0" expanded="true" />
-            <element signature="e#883#884#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1334,21 +1351,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanelTarget.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
-          <folding>
-            <element signature="e#244#245#0" expanded="true" />
-            <element signature="e#262#263#0" expanded="true" />
-            <element signature="e#738#739#0" expanded="true" />
-            <element signature="e#762#763#0" expanded="true" />
-            <element signature="e#811#812#0" expanded="true" />
-            <element signature="e#846#847#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/SimpleExpressionBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1412,13 +1414,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/graphite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/graphite.java" />
     <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grapher/AbstractGrapherConverter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1465,125 +1461,287 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/Convert.java">
+    <entry file="file://$PROJECT_DIR$/test_resources/grafana/Ganglia Perf Charts and Alerts.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="57" column="35" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
+        <state relative-caret-position="2567">
+          <caret line="151" column="18" selection-start-line="151" selection-start-column="7" selection-end-line="151" selection-end-column="18" />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_converted/grafana/dashboards/ct-asset-1529519721884.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_resources/grafana/ct-asset-1529519721884.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="42" lean-forward="true" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanelYAxis.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+          <folding>
+            <element signature="e#257#258#0" expanded="true" />
+            <element signature="e#277#278#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanelTarget.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="43" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_resources/grafana/VLDB Dashboard List-1529519007225.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-648" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test_resources/grafana/VLDB Event Loading.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="753" column="12" lean-forward="true" selection-start-line="753" selection-start-column="12" selection-end-line="753" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="23" />
-          <folding>
-            <element signature="e#1201#1202#0" expanded="true" />
-            <element signature="e#1223#1224#0" expanded="true" />
-            <element signature="e#1265#1266#0" expanded="true" />
-            <element signature="e#1296#1297#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="236">
+          <caret line="753" column="12" selection-start-line="753" selection-start-column="12" selection-end-line="753" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanelLegend.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="4" column="36" lean-forward="true" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_resources/grafana/Zeta ATL pipeline-1529520090208.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="123" column="11" selection-start-line="123" selection-start-column="11" selection-end-line="123" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="36" column="22" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
           <folding>
-            <element signature="e#482#483#0" expanded="true" />
-            <element signature="e#508#509#0" expanded="true" />
-            <element signature="e#562#563#0" expanded="true" />
-            <element signature="e#601#602#0" expanded="true" />
-            <element signature="e#628#629#0" expanded="true" />
-            <element signature="e#645#646#0" expanded="true" />
-            <element signature="e#681#682#0" expanded="true" />
-            <element signature="e#702#703#0" expanded="true" />
-            <element signature="e#733#734#0" expanded="true" />
-            <element signature="e#754#755#0" expanded="true" />
-            <element signature="e#798#799#0" expanded="true" />
-            <element signature="e#827#828#0" expanded="true" />
-            <element signature="e#854#855#0" expanded="true" />
-            <element signature="e#871#872#0" expanded="true" />
-            <element signature="e#907#908#0" expanded="true" />
-            <element signature="e#928#929#0" expanded="true" />
-            <element signature="e#955#956#0" expanded="true" />
-            <element signature="e#972#973#0" expanded="true" />
-            <element signature="e#1008#1009#0" expanded="true" />
-            <element signature="e#1029#1030#0" expanded="true" />
-            <element signature="e#1062#1063#0" expanded="true" />
-            <element signature="e#1085#1086#0" expanded="true" />
-            <element signature="e#1133#1134#0" expanded="true" />
-            <element signature="e#1166#1167#0" expanded="true" />
-            <element signature="e#1194#1195#0" expanded="true" />
-            <element signature="e#1212#1213#0" expanded="true" />
-            <element signature="e#1250#1251#0" expanded="true" />
-            <element signature="e#1273#1274#0" expanded="true" />
-            <element signature="e#1302#1303#0" expanded="true" />
-            <element signature="e#1321#1322#0" expanded="true" />
-            <element signature="e#1361#1362#0" expanded="true" />
-            <element signature="e#1386#1387#0" expanded="true" />
-            <element signature="e#1416#1417#0" expanded="true" />
-            <element signature="e#1436#1437#0" expanded="true" />
-            <element signature="e#1478#1479#0" expanded="true" />
-            <element signature="e#1505#1506#0" expanded="true" />
-            <element signature="e#1537#1538#0" expanded="true" />
-            <element signature="e#1559#1560#0" expanded="true" />
-            <element signature="e#1605#1606#0" expanded="true" />
-            <element signature="e#1636#1637#0" expanded="true" />
+            <element signature="e#1122#1123#0" expanded="true" />
+            <element signature="e#1141#1142#0" expanded="true" />
+            <element signature="e#1181#1182#0" expanded="true" />
+            <element signature="e#1206#1207#0" expanded="true" />
+            <element signature="e#1237#1238#0" expanded="true" />
+            <element signature="e#1257#1258#0" expanded="true" />
+            <element signature="e#1299#1300#0" expanded="true" />
+            <element signature="e#1326#1327#0" expanded="true" />
+            <element signature="e#1360#1361#0" expanded="true" />
+            <element signature="e#1384#1385#0" expanded="true" />
+            <element signature="e#1433#1434#0" expanded="true" />
+            <element signature="e#1468#1469#0" expanded="true" />
+            <element signature="e#1497#1498#0" expanded="true" />
+            <element signature="e#1519#1520#0" expanded="true" />
+            <element signature="e#1561#1562#0" expanded="true" />
+            <element signature="e#1592#1593#0" expanded="true" />
+            <element signature="e#1627#1628#0" expanded="true" />
+            <element signature="e#1652#1653#0" expanded="true" />
+            <element signature="e#1703#1704#0" expanded="true" />
+            <element signature="e#1740#1741#0" expanded="true" />
+            <element signature="e#1772#1773#0" expanded="true" />
+            <element signature="e#1793#1794#0" expanded="true" />
+            <element signature="e#1837#1838#0" expanded="true" />
+            <element signature="e#1866#1867#0" expanded="true" />
+            <element signature="e#1895#1896#0" expanded="true" />
+            <element signature="e#1933#1934#0" expanded="true" />
+            <element signature="e#1962#1963#0" expanded="true" />
+            <element signature="e#2000#2001#0" expanded="true" />
+            <element signature="e#2042#2043#0" expanded="true" />
+            <element signature="e#2062#2063#0" expanded="true" />
+            <element signature="e#2115#2116#0" expanded="true" />
+            <element signature="e#2142#2143#0" expanded="true" />
+            <element signature="e#2176#2177#0" expanded="true" />
+            <element signature="e#2200#2201#0" expanded="true" />
+            <element signature="e#2250#2251#0" expanded="true" />
+            <element signature="e#2285#2286#0" expanded="true" />
+            <element signature="e#2336#2337#0" expanded="true" />
+            <element signature="e#2360#2361#0" expanded="true" />
+            <element signature="e#2426#2427#0" expanded="true" />
+            <element signature="e#2461#2462#0" expanded="true" />
+            <element signature="e#2490#2491#0" expanded="true" />
+            <element signature="e#2509#2510#0" expanded="true" />
+            <element signature="e#2549#2550#0" expanded="true" />
+            <element signature="e#2574#2575#0" expanded="true" />
+            <element signature="e#2628#2629#0" expanded="true" />
+            <element signature="e#2649#2650#0" expanded="true" />
+            <element signature="e#2715#2716#0" expanded="true" />
+            <element signature="e#2744#2745#0" expanded="true" />
+            <element signature="e#2773#2774#0" expanded="true" />
+            <element signature="e#2792#2793#0" expanded="true" />
+            <element signature="e#2831#2832#0" expanded="true" />
+            <element signature="e#2856#2857#0" expanded="true" />
+            <element signature="e#2907#2908#0" expanded="true" />
+            <element signature="e#2926#2927#0" expanded="true" />
+            <element signature="e#2987#2988#0" expanded="true" />
+            <element signature="e#3012#3013#0" expanded="true" />
+            <element signature="e#3058#3059#0" expanded="true" />
+            <element signature="e#3082#3083#0" expanded="true" />
+            <element signature="e#3143#3144#0" expanded="true" />
+            <element signature="e#3178#3179#0" expanded="true" />
+            <element signature="e#3206#3207#0" expanded="true" />
+            <element signature="e#3224#3225#0" expanded="true" />
+            <element signature="e#3261#3262#0" expanded="true" />
+            <element signature="e#3284#3285#0" expanded="true" />
+            <element signature="e#3400#3401#0" expanded="true" />
+            <element signature="e#3417#3418#0" expanded="true" />
+            <element signature="e#3446#3447#0" expanded="true" />
+            <element signature="e#3465#3466#0" expanded="true" />
+            <element signature="e#3488#3489#0" expanded="true" />
+            <element signature="e#3505#3506#0" expanded="true" />
+            <element signature="e#3534#3535#0" expanded="true" />
+            <element signature="e#3553#3554#0" expanded="true" />
+            <element signature="e#3576#3577#0" expanded="true" />
+            <element signature="e#3593#3594#0" expanded="true" />
+            <element signature="e#3622#3623#0" expanded="true" />
+            <element signature="e#3641#3642#0" expanded="true" />
+            <element signature="e#3664#3665#0" expanded="true" />
+            <element signature="e#3681#3682#0" expanded="true" />
+            <element signature="e#3710#3711#0" expanded="true" />
+            <element signature="e#3729#3730#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_resources/grafana/Ganglia Perf Charts and Alerts.json">
+    <entry file="file://$PROJECT_DIR$/test_resources/grafana/NG Health - Health Workers-1529519807417.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="44" column="14" selection-start-line="44" selection-start-column="3" selection-end-line="44" selection-end-column="14" />
+        <state relative-caret-position="206">
+          <caret line="32" column="11" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/model/GrafanaDashboard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="40" column="36" selection-start-line="40" selection-start-column="36" selection-end-line="40" selection-end-column="36" />
+        <state relative-caret-position="255">
+          <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
           <folding>
-            <element signature="e#771#772#0" expanded="true" />
-            <element signature="e#791#792#0" expanded="true" />
-            <element signature="e#860#861#0" expanded="true" />
-            <element signature="e#887#888#0" expanded="true" />
-            <element signature="e#942#943#0" expanded="true" />
-            <element signature="e#967#968#0" expanded="true" />
-            <element signature="e#1038#1039#0" expanded="true" />
-            <element signature="e#1075#1076#0" expanded="true" />
+            <element signature="e#1139#1140#0" expanded="true" />
             <element signature="e#1164#1165#0" expanded="true" />
             <element signature="e#1215#1216#0" expanded="true" />
             <element signature="e#1252#1253#0" expanded="true" />
-            <element signature="e#1117#1118#0" expanded="true" />
-            <element signature="e#1137#1138#0" expanded="true" />
-            <element signature="e#1190#1191#0" expanded="true" />
-            <element signature="e#1217#1218#0" expanded="true" />
-            <element signature="e#1246#1247#0" expanded="true" />
-            <element signature="e#1265#1266#0" expanded="true" />
-            <element signature="e#1304#1305#0" expanded="true" />
-            <element signature="e#1329#1330#0" expanded="true" />
-            <element signature="e#1356#1357#0" expanded="true" />
-            <element signature="e#1373#1374#0" expanded="true" />
-            <element signature="e#1408#1409#0" expanded="true" />
-            <element signature="e#1429#1430#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_resources/grafana/VLDB Replication-1529520048654.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="189" column="14" selection-start-line="189" selection-start-column="14" selection-end-line="189" selection-end-column="14" />
+          <folding>
+            <element signature="e#16#203#0" />
+            <element signature="e#221#557#0" />
+            <element signature="n#!!block;n#annotations#0;n#!!top" />
+            <element signature="e#1112#1185#0" />
+            <element signature="e#1218#1441#0" />
+            <element signature="e#1669#2526#0" />
+            <element signature="e#1679#1819#0" />
+            <element signature="e#1829#1889#0" />
+            <element signature="e#1899#1964#0" />
+            <element signature="e#1974#2128#0" />
+            <element signature="e#2138#2225#0" />
+            <element signature="e#2235#2430#0" />
+            <element signature="e#2440#2518#0" />
+            <element signature="e#3906#3993#0" />
+            <element signature="e#4033#4156#0" />
+            <element signature="e#4173#4509#0" />
+            <element signature="e#4183#4339#0" />
+            <element signature="e#4349#4501#0" />
+            <element signature="e#4688#4761#0" />
+            <element signature="e#4794#5017#0" />
+            <element signature="e#5245#6190#0" />
+            <element signature="e#5255#5395#0" />
+            <element signature="e#5405#5465#0" />
+            <element signature="e#5475#5540#0" />
+            <element signature="e#5550#5704#0" />
+            <element signature="e#5714#5801#0" />
+            <element signature="e#5811#6006#0" />
+            <element signature="e#6016#6094#0" />
+            <element signature="e#6104#6182#0" />
+            <element signature="e#6284#7383#0" />
+            <element signature="e#6294#6544#0" />
+            <element signature="e#6554#6801#0" />
+            <element signature="e#6811#7375#0" />
+            <element signature="e#7524#7611#0" />
+            <element signature="e#7651#7774#0" />
+            <element signature="e#7791#8127#0" />
+            <element signature="e#7801#7957#0" />
+            <element signature="e#7967#8119#0" />
+            <element signature="e#8306#8380#0" />
+            <element signature="e#8413#8636#0" />
+            <element signature="e#8864#9989#0" />
+            <element signature="e#8874#9014#0" />
+            <element signature="e#9024#9084#0" />
+            <element signature="e#9094#9159#0" />
+            <element signature="e#9169#9323#0" />
+            <element signature="e#9333#9420#0" />
+            <element signature="e#9430#9625#0" />
+            <element signature="e#9635#9713#0" />
+            <element signature="e#9723#9801#0" />
+            <element signature="e#9811#9897#0" />
+            <element signature="e#9907#9981#0" />
+            <element signature="e#10083#10240#0" />
+            <element signature="e#10093#10232#0" />
+            <element signature="e#10377#10464#0" />
+            <element signature="e#10504#10627#0" />
+            <element signature="e#10644#10978#0" />
+            <element signature="e#10654#10807#0" />
+            <element signature="e#10817#10970#0" />
+            <element signature="e#11157#11232#0" />
+            <element signature="e#11265#11488#0" />
+            <element signature="e#11716#12661#0" />
+            <element signature="e#11726#11866#0" />
+            <element signature="e#11876#11936#0" />
+            <element signature="e#11946#12011#0" />
+            <element signature="e#12021#12175#0" />
+            <element signature="e#12185#12272#0" />
+            <element signature="e#12282#12477#0" />
+            <element signature="e#12487#12565#0" />
+            <element signature="e#12575#12653#0" />
+            <element signature="e#12755#13545#0" />
+            <element signature="e#12765#13010#0" />
+            <element signature="e#13020#13267#0" />
+            <element signature="e#13277#13537#0" />
+            <element signature="e#13683#13770#0" />
+            <element signature="e#13810#13933#0" />
+            <element signature="e#13950#14286#0" />
+            <element signature="e#13960#14116#0" />
+            <element signature="e#14126#14278#0" />
+            <element signature="n#!!block;n#templating#0;n#!!top" />
+            <element signature="n#!!block;n#time#0;n#!!top" />
+            <element signature="n#!!block;n#timepicker#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/Convert.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="67" column="17" selection-start-line="67" selection-start-column="17" selection-end-line="67" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_resources/grafana/NCP Main Dashboard - PILOT-1529519151146.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="146" column="29" selection-start-line="146" selection-start-column="15" selection-end-line="146" selection-end-column="34" />
+          <folding>
+            <element signature="e#1768#3808#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/wavefront/labs/convert/converter/grafana/GrafanaConverter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="67" column="70" selection-start-line="67" selection-start-column="70" selection-end-line="67" selection-end-column="70" />
+        <state relative-caret-position="-255">
+          <caret line="123" column="12" lean-forward="true" selection-start-line="123" selection-start-column="12" selection-end-line="123" selection-end-column="12" />
         </state>
       </provider>
     </entry>

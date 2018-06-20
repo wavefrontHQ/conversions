@@ -5,22 +5,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@JsonIgnoreProperties({"aliasColors", "bars", "dashLength", "dashes", "editable", "error", "fill", "grid", "id",
-		"lines", "linewidth", "links", "nullPointMode",	"pointradius", "points", "renderer",
-		"seriesOverrides", "spaceLength", "steppedLine", "timeFrom", "timeShift", "tooltip", "transparent", "xaxis"})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GrafanaPanel {
 
 	private HashMap alert;
+	private Object colors;
 	private String datasource;
 	private int decimals;
 	private String description;
+	private String displayName;
 	private GridPos gridPos;
 	private GrafanaPanelLegend legend;
 	private boolean percentage;
 	private HashMap<String, Object> scopedVars;
 	private boolean stack;
 	private ArrayList<GrafanaPanelTarget> targets;
-	private ArrayList<HashMap> thresholds;
+	private Object thresholds;
 	private String title;
 	private String type;
 	private ArrayList<GrafanaPanelYAxis> yaxes;
@@ -31,6 +31,14 @@ public class GrafanaPanel {
 
 	public void setAlert(HashMap alert) {
 		this.alert = alert;
+	}
+
+	public Object getColors() {
+		return colors;
+	}
+
+	public void setColors(Object colors) {
+		this.colors = colors;
 	}
 
 	public String getDatasource() {
@@ -129,11 +137,11 @@ public class GrafanaPanel {
 		this.yaxes = yaxes;
 	}
 
-	public ArrayList<HashMap> getThresholds() {
+	public Object getThresholds() {
 		return thresholds;
 	}
 
-	public void setThresholds(ArrayList<HashMap> thresholds) {
+	public void setThresholds(Object thresholds) {
 		this.thresholds = thresholds;
 	}
 

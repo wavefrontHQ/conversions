@@ -8,15 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 
 
-@JsonIgnoreProperties({"__requires", "editable", "gnetId", "graphTooltip", "hideControls",
-		"id", "links", "refresh", "schemaVersion", "style", "tags",
-		"templating", "time", "timepicker", "timezone", "version",})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GrafanaDashboard {
 
 	@JsonProperty("__inputs")
 	private ArrayList<HashMap<String, String>> inputs;
 
-	private HashMap<String, ArrayList> annotations;
+	private Object annotations;
 	private String description;
 	private List<GrafanaPanel> panels;
 	private String title;
@@ -30,11 +28,11 @@ public class GrafanaDashboard {
 		this.inputs = inputs;
 	}
 
-	public HashMap<String, ArrayList> getAnnotations() {
+	public Object getAnnotations() {
 		return annotations;
 	}
 
-	public void setAnnotations(HashMap<String, ArrayList> annotations) {
+	public void setAnnotations(Object annotations) {
 		this.annotations = annotations;
 	}
 

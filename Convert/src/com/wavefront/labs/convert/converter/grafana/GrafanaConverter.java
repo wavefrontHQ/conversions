@@ -108,45 +108,49 @@ public class GrafanaConverter implements Converter {
 		}
 
 		// Queries
-		for (GrafanaPanelTarget target : panel.getTargets()) {
-			ChartSourceQuery chartSourceQuery = new ChartSourceQuery();
-			chartSourceQuery.setDisabled(target.isHide());
-			chartSourceQuery.setName(target.getRefId());
+		if (panel.getTargets() != null) {
+			for (GrafanaPanelTarget target : panel.getTargets()) {
+				ChartSourceQuery chartSourceQuery = new ChartSourceQuery();
+				chartSourceQuery.setDisabled(target.isHide());
+				chartSourceQuery.setName(target.getRefId());
 
-			String query = target.getTargetFull() != null && !target.getTargetFull().equals("") ? target.getTargetFull() : target.getTarget();
-			chartSourceQuery.setQuery(expressionBuilder.buildExpression(query));
+				String query = target.getTargetFull() != null && !target.getTargetFull().equals("") ? target.getTargetFull() : target.getTarget();
+				chartSourceQuery.setQuery(expressionBuilder.buildExpression(query));
 
-			chart.addSourcesItem(chartSourceQuery);
+				chart.addSourcesItem(chartSourceQuery);
+			}
 		}
 
 		// Y-axes
-		chart.setBase(panel.getYaxes().get(0).getLogBase());
-		GrafanaPanelYAxis y0 = panel.getYaxes().get(0);
-		if (y0.getMin() != null && !y0.getMin().equals("")) {
-			chartSettings.setYmin(Double.valueOf(y0.getMin()));
-		}
-		if (y0.getMax() != null && !y0.getMax().equals("")) {
-			chartSettings.setYmax(Double.valueOf(y0.getMax()));
-		}
-		if (y0.getLabel() != null && !y0.getLabel().equals("")) {
-			chart.setUnits(y0.getLabel());
-		}
-		if (panel.getYaxes().size() > 1) {
-			GrafanaPanelYAxis y1 = panel.getYaxes().get(1);
-			if (y1.getMin() != null && !y1.getMin().equals("")) {
-				chartSettings.setYmin(Double.valueOf(y1.getMin()));
+		if (panel.getYaxes() != null && panel.getYaxes().size() > 0) {
+			chart.setBase(panel.getYaxes().get(0).getLogBase());
+			GrafanaPanelYAxis y0 = panel.getYaxes().get(0);
+			if (y0.getMin() != null && !y0.getMin().equals("")) {
+				chartSettings.setYmin(Double.valueOf(y0.getMin()));
 			}
-			if (y1.getMax() != null && !y1.getMax().equals("")) {
-				chartSettings.setYmax(Double.valueOf(y1.getMax()));
+			if (y0.getMax() != null && !y0.getMax().equals("")) {
+				chartSettings.setYmax(Double.valueOf(y0.getMax()));
 			}
-			if (y1.getLabel() != null && !y1.getLabel().equals("")) {
-				chartSettings.setY1Units(y1.getLabel());
+			if (y0.getLabel() != null && !y0.getLabel().equals("")) {
+				chart.setUnits(y0.getLabel());
+			}
+			if (panel.getYaxes().size() > 1) {
+				GrafanaPanelYAxis y1 = panel.getYaxes().get(1);
+				if (y1.getMin() != null && !y1.getMin().equals("")) {
+					chartSettings.setYmin(Double.valueOf(y1.getMin()));
+				}
+				if (y1.getMax() != null && !y1.getMax().equals("")) {
+					chartSettings.setYmax(Double.valueOf(y1.getMax()));
+				}
+				if (y1.getLabel() != null && !y1.getLabel().equals("")) {
+					chartSettings.setY1Units(y1.getLabel());
+				}
 			}
 		}
 
 		// Legend
 		GrafanaPanelLegend legend = panel.getLegend();
-		if (legend.isShow()) {
+		if (legend != null && legend.isShow()) {
 			chartSettings.setFixedLegendEnabled(true);
 
 			if (legend.isRightSide()) {

@@ -2,7 +2,7 @@ package com.wavefront.labs.convert.converter.grafana.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties({"sideWidth"})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GrafanaPanelLegend {
 
 	private boolean alignAsTable;

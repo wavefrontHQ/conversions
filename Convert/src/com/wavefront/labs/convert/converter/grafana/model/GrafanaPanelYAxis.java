@@ -1,5 +1,8 @@
 package com.wavefront.labs.convert.converter.grafana.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GrafanaPanelYAxis {
 
 	private String format;
@@ -7,7 +10,6 @@ public class GrafanaPanelYAxis {
 	private int logBase;
 	private String max;
 	private String min;
-	private boolean show;
 
 	public String getFormat() {
 		return format;
@@ -47,13 +49,5 @@ public class GrafanaPanelYAxis {
 
 	public void setMin(String min) {
 		this.min = min;
-	}
-
-	public boolean isShow() {
-		return show;
-	}
-
-	public void setShow(boolean show) {
-		this.show = show;
 	}
 }

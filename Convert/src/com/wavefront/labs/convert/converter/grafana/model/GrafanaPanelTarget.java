@@ -1,5 +1,8 @@
 package com.wavefront.labs.convert.converter.grafana.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GrafanaPanelTarget {
 
 	private boolean hide;

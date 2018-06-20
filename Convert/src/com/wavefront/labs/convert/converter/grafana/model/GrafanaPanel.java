@@ -5,22 +5,33 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@JsonIgnoreProperties({"aliasColors", "bars", "fill", "id",
-		"lines", "linewidth", "links", "nullPointMode",
-		"pointradius", "points", "renderer", "seriesOverrides",
-		"span", "steppedLine", "timeFrom", "timeShift", "tooltip", "xaxis"})
+@JsonIgnoreProperties({"aliasColors", "bars", "dashLength", "dashes", "editable", "error", "fill", "grid", "id",
+		"lines", "linewidth", "links", "nullPointMode",	"pointradius", "points", "renderer",
+		"seriesOverrides", "spaceLength", "steppedLine", "timeFrom", "timeShift", "tooltip", "transparent", "xaxis"})
 public class GrafanaPanel {
 
+	private HashMap alert;
 	private String datasource;
-	private HashMap<String, Object> legend;
+	private int decimals;
+	private String description;
+	private GridPos gridPos;
+	private GrafanaPanelLegend legend;
 	private boolean percentage;
 	private HashMap<String, Object> scopedVars;
 	private boolean stack;
-	private ArrayList<HashMap<String, Object>> targets;
-	private ArrayList<Double> thresholds;
+	private ArrayList<GrafanaPanelTarget> targets;
+	private ArrayList<HashMap> thresholds;
 	private String title;
 	private String type;
-	private ArrayList<HashMap> yaxes;
+	private ArrayList<GrafanaPanelYAxis> yaxes;
+
+	public HashMap getAlert() {
+		return alert;
+	}
+
+	public void setAlert(HashMap alert) {
+		this.alert = alert;
+	}
 
 	public String getDatasource() {
 		return datasource;
@@ -30,11 +41,43 @@ public class GrafanaPanel {
 		this.datasource = datasource;
 	}
 
-	public HashMap<String, Object> getLegend() {
+	public int getDecimals() {
+		return decimals;
+	}
+
+	public void setDecimals(int decimals) {
+		this.decimals = decimals;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public GridPos getGridPos() {
+		return gridPos;
+	}
+
+	public void setGridPos(GridPos gridPos) {
+		this.gridPos = gridPos;
+	}
+
+	public int getGridPosX() {
+		return this.getGridPos().getX();
+	}
+
+	public int getGridPosY() {
+		return this.getGridPos().getY();
+	}
+
+	public GrafanaPanelLegend getLegend() {
 		return legend;
 	}
 
-	public void setLegend(HashMap<String, Object> legend) {
+	public void setLegend(GrafanaPanelLegend legend) {
 		this.legend = legend;
 	}
 
@@ -62,11 +105,11 @@ public class GrafanaPanel {
 		this.stack = stack;
 	}
 
-	public ArrayList<HashMap<String, Object>> getTargets() {
+	public ArrayList<GrafanaPanelTarget> getTargets() {
 		return targets;
 	}
 
-	public void setTargets(ArrayList<HashMap<String, Object>> targets) {
+	public void setTargets(ArrayList<GrafanaPanelTarget> targets) {
 		this.targets = targets;
 	}
 
@@ -78,19 +121,19 @@ public class GrafanaPanel {
 		this.title = title;
 	}
 
-	public ArrayList<HashMap> getYaxes() {
+	public ArrayList<GrafanaPanelYAxis> getYaxes() {
 		return yaxes;
 	}
 
-	public void setYaxes(ArrayList<HashMap> yaxes) {
+	public void setYaxes(ArrayList<GrafanaPanelYAxis> yaxes) {
 		this.yaxes = yaxes;
 	}
 
-	public ArrayList<Double> getThresholds() {
+	public ArrayList<HashMap> getThresholds() {
 		return thresholds;
 	}
 
-	public void setThresholds(ArrayList<Double> thresholds) {
+	public void setThresholds(ArrayList<HashMap> thresholds) {
 		this.thresholds = thresholds;
 	}
 
@@ -100,5 +143,44 @@ public class GrafanaPanel {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public class GridPos {
+		private int h;
+		private int w;
+		private int x;
+		private int y;
+
+		public int getH() {
+			return h;
+		}
+
+		public void setH(int h) {
+			this.h = h;
+		}
+
+		public int getW() {
+			return w;
+		}
+
+		public void setW(int w) {
+			this.w = w;
+		}
+
+		public int getX() {
+			return x;
+		}
+
+		public void setX(int x) {
+			this.x = x;
+		}
+
+		public int getY() {
+			return y;
+		}
+
+		public void setY(int y) {
+			this.y = y;
+		}
 	}
 }

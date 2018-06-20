@@ -5,20 +5,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 @JsonIgnoreProperties({"__requires", "editable", "gnetId", "graphTooltip", "hideControls",
 		"id", "links", "refresh", "schemaVersion", "style", "tags",
-		"templating", "time", "timepicker", "timezone", "version"})
+		"templating", "time", "timepicker", "timezone", "version",})
 public class GrafanaDashboard {
 
 	@JsonProperty("__inputs")
 	private ArrayList<HashMap<String, String>> inputs;
 
-
 	private HashMap<String, ArrayList> annotations;
-	private ArrayList<GrafanaDashboardRow> rows;
+	private String description;
+	private List<GrafanaPanel> panels;
 	private String title;
+	private String uid;
 
 	public ArrayList<HashMap<String, String>> getInputs() {
 		return inputs;
@@ -36,12 +38,20 @@ public class GrafanaDashboard {
 		this.annotations = annotations;
 	}
 
-	public ArrayList<GrafanaDashboardRow> getRows() {
-		return rows;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setRows(ArrayList<GrafanaDashboardRow> rows) {
-		this.rows = rows;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<GrafanaPanel> getPanels() {
+		return panels;
+	}
+
+	public void setPanels(List<GrafanaPanel> panels) {
+		this.panels = panels;
 	}
 
 	public String getTitle() {
@@ -50,5 +60,13 @@ public class GrafanaDashboard {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 }

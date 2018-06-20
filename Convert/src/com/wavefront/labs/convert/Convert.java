@@ -60,8 +60,11 @@ public class Convert {
 			if (file.isDirectory()) {
 				List<Path> paths = Files.list(file.toPath()).collect(Collectors.toList());
 				for (Path path : paths) {
-					logger.info("Converting file: " + path.getFileName());
-					converter.parse(path.toFile());
+					File _file = path.toFile();
+					if (!_file.isDirectory()) {
+						logger.info("Converting file: " + _file.getName());
+						converter.parse(_file);
+					}
 				}
 			} else {
 				logger.info("Converting file: " + file.getName());

@@ -33,6 +33,7 @@ public class GrapherChartConverter extends AbstractGrapherConverter {
 	}
 
 	private void parseModel() throws IOException {
+
 		grapherChart.setTitle(grapherChart.getTitle().replaceAll("\\*", "-"));
 
 		if (grapherChart.getRrdDef() != null) {

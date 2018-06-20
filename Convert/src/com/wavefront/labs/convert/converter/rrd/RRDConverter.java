@@ -16,10 +16,11 @@ import java.util.Properties;
 public class RRDConverter implements Converter {
 
 	protected Properties properties;
-	protected RRDContext rrdContext;
+	protected List<RRDContext> rrdContexts;
 
 	public RRDConverter() {
 		this.properties = new Properties();
+		rrdContexts = new ArrayList();
 	}
 
 	@Override
@@ -29,46 +30,52 @@ public class RRDConverter implements Converter {
 
 	@Override
 	public void parse(Object data) throws IOException {
-		rrdContext = new RRDContext(properties);
+
+		RRDContext rrdContext = new RRDContext(properties);
 		rrdContext.parse(data);
+
+		rrdContexts.add(rrdContext);
 	}
 
 	@Override
 	public List convert() {
 
 		ArrayList models = new ArrayList();
-		Chart chart = new Chart();
 
-		boolean stacked = true;
+		for (RRDContext rrdContext : rrdContexts) {
+			Chart chart = new Chart();
 
-		for (Graph graph : rrdContext.getGraphs()) {
+			boolean stacked = true;
 
-			GraphItem graphItem = graph.getGraphItem();
+			for (Graph graph : rrdContext.getGraphs()) {
 
-			stacked = stacked && graphItem.isStacked();
+				GraphItem graphItem = graph.getGraphItem();
 
-			ChartSourceQuery chartSourceQuery = new ChartSourceQuery();
-			chartSourceQuery.setName(graphItem.getLegend());
+				stacked = stacked && graphItem.isStacked();
 
-			String value = graphItem.getValue();
-			if (rrdContext.hasVariable(value)) {
-				value = rrdContext.getVariable(value);
+				ChartSourceQuery chartSourceQuery = new ChartSourceQuery();
+				chartSourceQuery.setName(graphItem.getLegend());
+
+				String value = graphItem.getValue();
+				if (rrdContext.hasVariable(value)) {
+					value = rrdContext.getVariable(value);
+				}
+				chartSourceQuery.setQuery(value);
+
+				chart.getSources().add(chartSourceQuery);
 			}
-			chartSourceQuery.setQuery(value);
 
-			chart.getSources().add(chartSourceQuery);
+			ChartSettings chartSettings = new ChartSettings();
+			if (stacked) {
+				chartSettings.setType(TypeEnum.STACKED_AREA);
+			} else {
+				chartSettings.setType(TypeEnum.LINE);
+			}
+			chart.setChartSettings(chartSettings);
+
+			models.add(chart);
 		}
 
-		ChartSettings chartSettings = new ChartSettings();
-		if (stacked) {
-			chartSettings.setType(TypeEnum.STACKED_AREA);
-		} else {
-			chartSettings.setType(TypeEnum.LINE);
-		}
-		chart.setChartSettings(chartSettings);
-
-
-		models.add(chart);
 		return models;
 	}
 }

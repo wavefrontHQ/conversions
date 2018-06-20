@@ -7,9 +7,12 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 public class Convert {
 
@@ -49,11 +52,21 @@ public class Convert {
 		}
 
 		if (filename == null || filename.equals("")) {
-			logger.info("No file to convert specified.");
+			logger.info("No file/path to convert specified.");
 			converter.parse(null);
 		} else {
-			logger.info("Attempt to convert file: " + filename);
-			converter.parse(new File(filename));
+			logger.info("Find file/path to convert: " + filename);
+			File file = new File(filename);
+			if (file.isDirectory()) {
+				List<Path> paths = Files.list(file.toPath()).collect(Collectors.toList());
+				for (Path path : paths) {
+					logger.info("Converting file: " + path.getFileName());
+					converter.parse(path.toFile());
+				}
+			} else {
+				logger.info("Converting file: " + file.getName());
+				converter.parse(file);
+			}
 		}
 
 		return converter.convert();

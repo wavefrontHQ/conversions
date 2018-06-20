@@ -1,31 +1,47 @@
 package com.wavefront.labs.convert.converter.datadog;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class DatadogConverter extends AbstractDatadogConverter {
 
-	private AbstractDatadogConverter converter;
+	private List<AbstractDatadogConverter> converters;
+
+	@Override
+	public void init(Properties properties) {
+		super.init(properties);
+		converters = new ArrayList();
+	}
 
 	@Override
 	public void parse(Object data) throws IOException {
 
+		AbstractDatadogConverter converter;
+
 		if (data == null) {
 			converter = new DatadogApiConverter();
-		} else if (data instanceof File) {
+		} else {
 			converter = new DatadogTimeboardConverter();
 		}
 
 		converter.init(properties);
 		converter.parse(data);
 
+		converters.add(converter);
 	}
 
 	@Override
 	public List convert() {
 
-		return converter.convert();
+		List models = new ArrayList();
+
+		for (AbstractDatadogConverter converter : converters) {
+			models.addAll(converter.convert());
+		}
+
+		return models;
 
 	}
 }

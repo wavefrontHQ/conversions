@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 import java.util.regex.Pattern;
 
 public class DatadogApiConverter extends AbstractDatadogConverter {
@@ -18,9 +19,13 @@ public class DatadogApiConverter extends AbstractDatadogConverter {
 	private List<DatadogTimeboardConverter> converters;
 
 	@Override
-	public void parse(Object data) throws IOException {
-
+	public void init(Properties properties) {
+		super.init(properties);
 		converters = new ArrayList();
+	}
+
+	@Override
+	public void parse(Object data) throws IOException {
 
 		String apiKey = properties.getProperty("datadog.api.key");
 		String applicationKey = properties.getProperty("datadog.application.key");

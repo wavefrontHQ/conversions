@@ -11,16 +11,25 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class GrapherConverter extends AbstractGrapherConverter {
 
 	private static final Logger logger = LogManager.getLogger(GrapherConverter.class);
 
-	private List<GrapherDashboard> grapherDashboards;
+	private List<List<GrapherDashboard>> grapherDashboardsList;
+
+	@Override
+	public void init(Properties properties) {
+		super.init(properties);
+		grapherDashboardsList = new ArrayList();
+	}
 
 	@Override
 	public void parse(Object data) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
+
+		List<GrapherDashboard> grapherDashboards = new ArrayList();
 
 		if (data instanceof String) {
 			grapherDashboards = mapper.readValue((String) data, new TypeReference<List<GrapherDashboard>>() {
@@ -32,10 +41,11 @@ public class GrapherConverter extends AbstractGrapherConverter {
 			return;
 		}
 
-		parseModel();
+		parseModel(grapherDashboards);
+		grapherDashboardsList.add(grapherDashboards);
 	}
 
-	private void parseModel() throws IOException {
+	private void parseModel(List<GrapherDashboard> grapherDashboards) throws IOException {
 		for (GrapherDashboard grapherDashboard : grapherDashboards) {
 			GrapherDashboardConverter grapherDashboardConverter = new GrapherDashboardConverter();
 			grapherDashboardConverter.init(properties);
@@ -49,28 +59,31 @@ public class GrapherConverter extends AbstractGrapherConverter {
 
 		List models = new ArrayList();
 
-		for (GrapherDashboard grapherDashboard : grapherDashboards) {
-			if (grapherDashboard.getConverter() != null) {
-				List dashboardModels = grapherDashboard.getConverter().convert();
+		for (List<GrapherDashboard> grapherDashboards : grapherDashboardsList) {
 
-				int count = 0;
-				String name = grapherDashboard.getName();
-				String url = name.toLowerCase().replaceAll("[^a-zA-Z0-9_\\-]", "-");
-				for (Object model : dashboardModels) {
-					if (model instanceof Dashboard) {
-						Dashboard dashboard = (Dashboard) model;
-						if (count == 0) {
-							dashboard.setUrl(url);
-							dashboard.setName(name);
-						} else {
-							dashboard.setUrl(url + "-" + count);
-							dashboard.setName(name + " - " + count);
+			for (GrapherDashboard grapherDashboard : grapherDashboards) {
+				if (grapherDashboard.getConverter() != null) {
+					List dashboardModels = grapherDashboard.getConverter().convert();
+
+					int count = 0;
+					String name = grapherDashboard.getName();
+					String url = name.toLowerCase().replaceAll("[^a-zA-Z0-9_\\-]", "-");
+					for (Object model : dashboardModels) {
+						if (model instanceof Dashboard) {
+							Dashboard dashboard = (Dashboard) model;
+							if (count == 0) {
+								dashboard.setUrl(url);
+								dashboard.setName(name);
+							} else {
+								dashboard.setUrl(url + "-" + count);
+								dashboard.setName(name + " - " + count);
+							}
+							count++;
 						}
-						count++;
 					}
-				}
 
-				models.addAll(dashboardModels);
+					models.addAll(dashboardModels);
+				}
 			}
 		}
 

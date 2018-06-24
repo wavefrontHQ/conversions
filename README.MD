@@ -8,5 +8,5 @@ Includes support for:
 
 
 ### graphite-wavefront
-Python script which can be used to reach whisper data files and upload all metrics data
+Python script which can be used to read whisper data files and upload all metrics data
 to Wavefront.

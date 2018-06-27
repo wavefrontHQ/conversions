@@ -20,6 +20,13 @@ public class Convert {
 
 	private Properties properties;
 
+	public static void main(String[] args) {
+
+		Convert convert = new Convert();
+		convert.start(args);
+
+	}
+
 	public void start(String[] args) {
 		logger.info("Convert to Wavefront starting...");
 
@@ -82,11 +89,14 @@ public class Convert {
 		Writer writer = (Writer) Class.forName(generatorName).newInstance();
 		writer.init(properties);
 
+		// tags can be separated by whitespace, comma, or semi-colon
 		List<String> tags = Arrays.asList(properties.getProperty("convert.writer.tags", "").split("(\\s|,|;)"));
 
 		for (Object model : models) {
 			if (model instanceof Dashboard) {
 				Dashboard dashboard = (Dashboard) model;
+				logger.info("Writing Dashboard: " + dashboard.getName());
+
 				if (dashboard.getTags() == null) {
 					dashboard.setTags(new WFTags());
 				}
@@ -95,6 +105,8 @@ public class Convert {
 
 			} else if (model instanceof Alert) {
 				Alert alert = (Alert) model;
+				logger.info("Writing Alert: " + alert.getName());
+
 				if (alert.getTags() == null) {
 					alert.setTags(new WFTags());
 				}
@@ -103,13 +115,18 @@ public class Convert {
 
 			} else if (model instanceof MaintenanceWindow) {
 				MaintenanceWindow maintenanceWindow = (MaintenanceWindow) model;
+				logger.info("Writing Maintenance Window: " + maintenanceWindow.getTitle());
+
 				for (String tag : tags) {
 					maintenanceWindow.addRelevantCustomerTagsItem(tag);
 				}
 				writer.writeMaintenanceWindow(maintenanceWindow);
 
 			} else if (model instanceof UserToCreate) {
-				writer.writeUser((UserToCreate) model);
+				UserToCreate userToCreate = (UserToCreate) model;
+				logger.info("Writing User: " + userToCreate.getEmailAddress());
+
+				writer.writeUser(userToCreate);
 
 			} else {
 				logger.error("Invalid model class: " + model.getClass().getName());
@@ -121,12 +138,5 @@ public class Convert {
 		for (String tag : tags) {
 			wfTags.addCustomerTagsItem(tag);
 		}
-	}
-
-	public static void main(String[] args) {
-
-		Convert convert = new Convert();
-		convert.start(args);
-
 	}
 }

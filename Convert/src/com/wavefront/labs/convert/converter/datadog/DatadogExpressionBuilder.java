@@ -295,7 +295,7 @@ public class DatadogExpressionBuilder extends DefaultExpressionBuilder {
 
 					} else if (dropTags.contains(prefix)) {
 						continue;
-						
+
 					} else {
 						variable.setTagName(prefix);
 					}

@@ -49,7 +49,7 @@ public class RankingFunctions {
 		String funcName = isDescending ? "top" : "bottom";
 		String flipFuncName = isDescending ? "bottom" : "top";
 		int offset = Integer.parseInt(function.getArguments().get(3).trim());
-		
+
 		switch (aggr) {
 			case "'last'":
 				return flipFuncName + "k(" + num + ", " + funcName + "k(" + (num + offset) + ", " + function.getQuery() + "))";

@@ -21,7 +21,7 @@ public class RRDExpressionBuilder extends DefaultExpressionBuilder {
 
 		String ts = super.buildExpression(metricName);
 
-		switch(CF) {
+		switch (CF) {
 			case "AVERAGE":
 				ts = "avg(" + ts + ")";
 				break;

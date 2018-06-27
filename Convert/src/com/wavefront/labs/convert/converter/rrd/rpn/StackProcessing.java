@@ -32,7 +32,7 @@ public class StackProcessing {
 		try {
 			count = Integer.parseInt(queue.pop());
 		} catch (NumberFormatException e) {
-		 	return "could not process count as integer";
+			return "could not process count as integer";
 		}
 
 		String[] values = new String[count];
@@ -53,7 +53,7 @@ public class StackProcessing {
 		try {
 			index = Integer.parseInt(queue.pop());
 		} catch (NumberFormatException e) {
-		 	return "could not process index as integer";
+			return "could not process index as integer";
 		}
 
 		String newVal = null;

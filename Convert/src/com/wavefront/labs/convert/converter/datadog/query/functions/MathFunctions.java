@@ -17,11 +17,11 @@ public class MathFunctions {
 	}
 
 	public static String cumsum(DatadogFunction function) {
-			return "integral(" + function.getQuery() + ")";
+		return "integral(" + function.getQuery() + ")";
 	}
 
 	public static String integral(DatadogFunction function) {
-			return "integral(deriv(" + function.getQuery() + ")";
+		return "integral(deriv(" + function.getQuery() + ")";
 	}
 
 

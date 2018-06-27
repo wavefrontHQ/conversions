@@ -127,7 +127,7 @@ public class DatadogQuery {
 				return new DatadogFunction(name, args);
 			}
 		}
-		
+
 		return new DatadogFunction(name);
 	}
 

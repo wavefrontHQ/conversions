@@ -17,7 +17,7 @@ public class Shift extends GraphItem {
 		value = stripQuotes(parts[0]);
 		offset = parts[1];
 		if (context.hasVariable(value)) {
-			String ts = "lag(" + offset + "s, " +  context.getVariable(value) + ")";
+			String ts = "lag(" + offset + "s, " + context.getVariable(value) + ")";
 			context.getVariables().put(value, ts);
 		}
 

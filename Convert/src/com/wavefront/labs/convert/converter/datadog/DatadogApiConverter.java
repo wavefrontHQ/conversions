@@ -35,7 +35,8 @@ public class DatadogApiConverter extends AbstractDatadogConverter {
 
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			List<HashMap> dashes = mapper.convertValue(mapper.readTree(new URL(url)).get("dashes"), new TypeReference<List<HashMap>> (){});
+			List<HashMap> dashes = mapper.convertValue(mapper.readTree(new URL(url)).get("dashes"), new TypeReference<List<HashMap>>() {
+			});
 			processDashes(dashes);
 		} catch (IOException e) {
 			logger.error("Could not get list of available timeboards via API", e);

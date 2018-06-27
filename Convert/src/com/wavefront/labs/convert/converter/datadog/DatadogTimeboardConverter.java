@@ -133,24 +133,24 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 			if (definition.getRequests() != null && definition.getRequests().size() > 0) {
 				String viz = definition.getViz();
 				String vizType = definition.getRequests().get(0).getType();
-		        chartSettings.setType(getChartType(viz, vizType));
+				chartSettings.setType(getChartType(viz, vizType));
 
-		        if (chartSettings.getType() == TypeEnum.SPARKLINE && definition.getPrecision() != null && !definition.getPrecision().equals("")) {
-			        chartSettings.setSparklineDecimalPrecision(Integer.parseInt(definition.getPrecision()));
-		        }
+				if (chartSettings.getType() == TypeEnum.SPARKLINE && definition.getPrecision() != null && !definition.getPrecision().equals("")) {
+					chartSettings.setSparklineDecimalPrecision(Integer.parseInt(definition.getPrecision()));
+				}
 
-		        String aggregator = definition.getRequests().get(0).getAggregator();
-		        chart.setSummarization(getChartSummarization(aggregator));
+				String aggregator = definition.getRequests().get(0).getAggregator();
+				chart.setSummarization(getChartSummarization(aggregator));
 
-		        for (DatadogGraphRequest request : definition.getRequests()) {
-			        String[] queries = expressionBuilder.buildExpression(request.getQuery()).split(DatadogExpressionBuilder.QUERY_SEPARATOR_SPLIT);
-			        for (String query : queries) {
-			        	ChartSourceQuery chartSourceQuery = new ChartSourceQuery();
-			        	chartSourceQuery.setQuery(query.trim());
-			        	chartSourceQuery.setName("Query");
-			        	chart.addSourcesItem(chartSourceQuery);
-			        }
-		        }
+				for (DatadogGraphRequest request : definition.getRequests()) {
+					String[] queries = expressionBuilder.buildExpression(request.getQuery()).split(DatadogExpressionBuilder.QUERY_SEPARATOR_SPLIT);
+					for (String query : queries) {
+						ChartSourceQuery chartSourceQuery = new ChartSourceQuery();
+						chartSourceQuery.setQuery(query.trim());
+						chartSourceQuery.setName("Query");
+						chart.addSourcesItem(chartSourceQuery);
+					}
+				}
 			}
 
 			DatadogYAxis yaxis = definition.getYaxis();
@@ -177,7 +177,7 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 							break;
 					}
 				}
-				
+
 			}
 		}
 
@@ -203,7 +203,7 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 		if (vizType == null) {
 			vizType = "line";
 		}
-		
+
 		switch (viz) {
 			case "timeseries":
 				switch (vizType) {

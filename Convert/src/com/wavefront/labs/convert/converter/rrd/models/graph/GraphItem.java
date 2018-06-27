@@ -6,17 +6,17 @@ public abstract class GraphItem {
 
 	String line;
 	RRDContext context;
-	
+
 	String value = "";
 	String legend = "Query";
 	String color = "";
 	boolean stacked = false;
-	
+
 	GraphItem(String line, RRDContext context) {
 		this.line = line;
 		this.context = context;
 	}
-	
+
 	public abstract void process();
 
 	String stripQuotes(String value) {

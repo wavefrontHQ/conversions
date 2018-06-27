@@ -22,6 +22,16 @@ public class GrapherDashboardConverter extends AbstractGrapherConverter {
 
 	private List<GrapherDashboardGraph> grapherDashboardGraphs;
 
+	private static List<GrapherChartDefinition> getAllGraphDefinitions(Properties properties) throws IOException {
+		if (grapherChartDefinitions == null) {
+			String chartDefinitionsFile = properties.getProperty("grapher.definitions.charts");
+			ObjectMapper mapper = new ObjectMapper();
+			grapherChartDefinitions = mapper.readValue(new File(chartDefinitionsFile), new TypeReference<List<GrapherChartDefinition>>() {
+			});
+		}
+		return grapherChartDefinitions;
+	}
+
 	@Override
 	public void parse(Object data) throws IOException {
 
@@ -161,7 +171,6 @@ public class GrapherDashboardConverter extends AbstractGrapherConverter {
 		return models;
 	}
 
-
 	private DashboardParameterValue createHostVariable() {
 		DashboardParameterValue host = new DashboardParameterValue();
 		host.setParameterType(ParameterTypeEnum.LIST);
@@ -263,15 +272,5 @@ public class GrapherDashboardConverter extends AbstractGrapherConverter {
 		} else {
 			return null;
 		}
-	}
-
-	private static List<GrapherChartDefinition> getAllGraphDefinitions(Properties properties) throws IOException {
-		if (grapherChartDefinitions == null) {
-			String chartDefinitionsFile = properties.getProperty("grapher.definitions.charts");
-			ObjectMapper mapper = new ObjectMapper();
-			grapherChartDefinitions = mapper.readValue(new File(chartDefinitionsFile), new TypeReference<List<GrapherChartDefinition>>() {
-			});
-		}
-		return grapherChartDefinitions;
 	}
 }

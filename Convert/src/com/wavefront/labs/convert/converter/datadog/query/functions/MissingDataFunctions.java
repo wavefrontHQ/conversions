@@ -37,7 +37,7 @@ public class MissingDataFunctions {
 	}
 
 	public static String countNonzero(DatadogFunction function) {
-		
+
 		return "count(if(" + function.getQuery() + " != 0, " + function.getQuery() + "))";
 
 	}
@@ -45,6 +45,6 @@ public class MissingDataFunctions {
 	public static String countNotNull(DatadogFunction function) {
 
 		return "count(" + function.getQuery() + ")";
-		
+
 	}
 }

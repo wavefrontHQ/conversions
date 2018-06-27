@@ -35,7 +35,8 @@ public class GrapherConverter extends AbstractGrapherConverter {
 			grapherDashboards = mapper.readValue((String) data, new TypeReference<List<GrapherDashboard>>() {
 			});
 		} else if (data instanceof File) {
-			grapherDashboards = mapper.readValue((File) data, new TypeReference<List<GrapherDashboard>>(){});
+			grapherDashboards = mapper.readValue((File) data, new TypeReference<List<GrapherDashboard>>() {
+			});
 		} else {
 			logger.error("Invalid type to parse: " + data.getClass().getName());
 			return;

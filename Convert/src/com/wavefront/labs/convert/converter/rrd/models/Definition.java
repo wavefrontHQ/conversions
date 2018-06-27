@@ -6,12 +6,9 @@ import java.util.ArrayList;
 
 public abstract class Definition {
 
-	public abstract String calculate(RRDContext RRDContext);
-
 	protected String variableName;
 	protected String expression;
 	protected ArrayList<String> warnings;
-
 	public Definition(String line) {
 		int colon = line.indexOf(":");
 		int eq = line.indexOf("=", colon);
@@ -20,6 +17,8 @@ public abstract class Definition {
 		expression = stripQuotes(line.substring(eq + 1));
 		warnings = new ArrayList();
 	}
+
+	public abstract String calculate(RRDContext RRDContext);
 
 	protected String stripQuotes(String value) {
 		if (value.startsWith("'")) {

@@ -12,7 +12,10 @@ public interface Writer {
 	void init(Properties properties);
 
 	void writeDashboard(Dashboard dashboard);
+
 	void writeAlert(Alert alert);
+
 	void writeMaintenanceWindow(MaintenanceWindow maintenanceWindow);
+
 	void writeUser(UserToCreate user);
 }

@@ -10,7 +10,7 @@ public class SetOperations {
 		try {
 			count = Integer.parseInt(queue.pop());
 		} catch (NumberFormatException e) {
-		 	return "could not process count as integer";
+			return "could not process count as integer";
 		}
 
 		Double[] values = new Double[count];
@@ -47,7 +47,7 @@ public class SetOperations {
 		try {
 			count = Integer.parseInt(queue.pop());
 		} catch (NumberFormatException e) {
-		 	return "could not process count as integer";
+			return "could not process count as integer";
 		}
 
 		String[] values = new String[count];
@@ -69,7 +69,7 @@ public class SetOperations {
 		try {
 			count = Integer.parseInt(queue.pop());
 		} catch (NumberFormatException e) {
-		 	return "could not process count as integer";
+			return "could not process count as integer";
 		}
 
 		ts = "(";
@@ -102,13 +102,13 @@ public class SetOperations {
 		try {
 			window = Integer.parseInt(queue.pop());
 		} catch (NumberFormatException e) {
-		 	return "could not process window as integer";
+			return "could not process window as integer";
 		}
 		int count;
 		try {
 			count = Integer.parseInt(queue.pop());
 		} catch (NumberFormatException e) {
-		 	return "could not process count as integer";
+			return "could not process count as integer";
 		}
 
 		if (count > 0) {
@@ -132,7 +132,7 @@ public class SetOperations {
 			try {
 				shift = Integer.parseInt(queue.pop());
 			} catch (NumberFormatException e) {
-			 	return "could not process shift as integer";
+				return "could not process shift as integer";
 			}
 
 			ts += "lag(" + shift + "s, " + expression + ")";
@@ -151,7 +151,7 @@ public class SetOperations {
 		try {
 			shiftVal = Integer.parseInt(queue.pop());
 		} catch (NumberFormatException e) {
-		 	return "could not process shift as integer";
+			return "could not process shift as integer";
 		}
 
 		String ts;

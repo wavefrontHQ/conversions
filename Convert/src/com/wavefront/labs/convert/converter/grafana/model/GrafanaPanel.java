@@ -9,21 +9,26 @@ import java.util.HashMap;
 public class GrafanaPanel {
 
 	private HashMap alert;
+	private boolean colorBackground;
 	private Object colors;
-	private String datasource;
-	private int decimals;
+	private String content;
+	private Integer decimals;
 	private String description;
-	private String displayName;
+	private String format;
 	private GridPos gridPos;
 	private GrafanaPanelLegend legend;
+	private boolean lines;
 	private boolean percentage;
-	private HashMap<String, Object> scopedVars;
+	private String postfix;
+	private String prefix;
+	private GrafanaPanelSparkline sparkline;
 	private boolean stack;
 	private ArrayList<GrafanaPanelTarget> targets;
 	private Object thresholds;
 	private String title;
 	private String type;
 	private ArrayList<GrafanaPanelYAxis> yaxes;
+	private String valueFontSize;
 
 	public HashMap getAlert() {
 		return alert;
@@ -31,6 +36,14 @@ public class GrafanaPanel {
 
 	public void setAlert(HashMap alert) {
 		this.alert = alert;
+	}
+
+	public boolean isColorBackground() {
+		return colorBackground;
+	}
+
+	public void setColorBackground(boolean colorBackground) {
+		this.colorBackground = colorBackground;
 	}
 
 	public Object getColors() {
@@ -41,19 +54,19 @@ public class GrafanaPanel {
 		this.colors = colors;
 	}
 
-	public String getDatasource() {
-		return datasource;
+	public String getContent() {
+		return content;
 	}
 
-	public void setDatasource(String datasource) {
-		this.datasource = datasource;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public int getDecimals() {
+	public Integer getDecimals() {
 		return decimals;
 	}
 
-	public void setDecimals(int decimals) {
+	public void setDecimals(Integer decimals) {
 		this.decimals = decimals;
 	}
 
@@ -63,6 +76,14 @@ public class GrafanaPanel {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getFormat() {
+		return format;
+	}
+
+	public void setFormat(String format) {
+		this.format = format;
 	}
 
 	public GridPos getGridPos() {
@@ -89,6 +110,14 @@ public class GrafanaPanel {
 		this.legend = legend;
 	}
 
+	public boolean isLines() {
+		return lines;
+	}
+
+	public void setLines(boolean lines) {
+		this.lines = lines;
+	}
+
 	public boolean isPercentage() {
 		return percentage;
 	}
@@ -97,12 +126,28 @@ public class GrafanaPanel {
 		this.percentage = percentage;
 	}
 
-	public HashMap<String, Object> getScopedVars() {
-		return scopedVars;
+	public String getPostfix() {
+		return postfix;
 	}
 
-	public void setScopedVars(HashMap<String, Object> scopedVars) {
-		this.scopedVars = scopedVars;
+	public void setPostfix(String postfix) {
+		this.postfix = postfix;
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	public GrafanaPanelSparkline getSparkline() {
+		return sparkline;
+	}
+
+	public void setSparkline(GrafanaPanelSparkline sparkline) {
+		this.sparkline = sparkline;
 	}
 
 	public boolean isStack() {
@@ -190,5 +235,13 @@ public class GrafanaPanel {
 		public void setY(int y) {
 			this.y = y;
 		}
+	}
+
+	public String getValueFontSize() {
+		return valueFontSize;
+	}
+
+	public void setValueFontSize(String valueFontSize) {
+		this.valueFontSize = valueFontSize;
 	}
 }

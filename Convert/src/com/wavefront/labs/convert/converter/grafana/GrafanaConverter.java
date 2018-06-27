@@ -6,12 +6,12 @@ import com.wavefront.labs.convert.ExpressionBuilder;
 import com.wavefront.labs.convert.SimpleExpressionBuilder;
 import com.wavefront.labs.convert.Utils;
 import com.wavefront.labs.convert.converter.datadog.DatadogTimeboardConverter;
-import com.wavefront.labs.convert.converter.grafana.model.*;
-import com.wavefront.rest.models.*;
-import com.wavefront.rest.models.Chart.SummarizationEnum;
-import com.wavefront.rest.models.ChartSettings.FixedLegendPositionEnum;
-import com.wavefront.rest.models.ChartSettings.StackTypeEnum;
-import com.wavefront.rest.models.ChartSettings.TypeEnum;
+import com.wavefront.labs.convert.converter.grafana.model.GrafanaDashboard;
+import com.wavefront.labs.convert.converter.grafana.model.GrafanaPanel;
+import com.wavefront.rest.models.Chart;
+import com.wavefront.rest.models.Dashboard;
+import com.wavefront.rest.models.DashboardSection;
+import com.wavefront.rest.models.DashboardSectionRow;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,6 +30,7 @@ public class GrafanaConverter implements Converter {
 	private List<GrafanaDashboard> grafanaDashboards;
 
 	private ExpressionBuilder expressionBuilder;
+	private GrafanaConverterHelper grafanaConverterHelper;
 
 	@Override
 	public void init(Properties properties) {
@@ -46,6 +47,7 @@ public class GrafanaConverter implements Converter {
 			expressionBuilder = new SimpleExpressionBuilder();
 		}
 		expressionBuilder.init(properties);
+		grafanaConverterHelper = new GrafanaConverterHelper(expressionBuilder);
 		grafanaDashboards = new ArrayList();
 	}
 
@@ -73,16 +75,30 @@ public class GrafanaConverter implements Converter {
 			dashboardSection.setName("Charts");
 
 			DashboardSectionRow dashboardSectionRow = new DashboardSectionRow();
-			int curY = panels.get(0).getGridPosY();
+			int curY = 0;
+			boolean rowStart = true;
 			for (GrafanaPanel panel : panels) {
-				if (curY != panel.getGridPosY()) {
+
+				if (rowStart) {
+					rowStart = false;
+					curY = panel.getGridPosY();
+				} else if (curY != panel.getGridPosY()) {
 					dashboardSection.addRowsItem(dashboardSectionRow);
 					dashboardSectionRow = new DashboardSectionRow();
 					curY = panel.getGridPosY();
 				}
 
-				Chart chart = getChartFromPanel(panel);
-				dashboardSectionRow.addChartsItem(chart);
+				if (panel.getType().equals("row")) {
+					if (!dashboardSection.getRows().isEmpty()) {
+						dashboard.addSectionsItem(dashboardSection);
+						dashboardSection = new DashboardSection();
+					}
+					dashboardSection.setName(panel.getTitle());
+					rowStart = true;
+				} else {
+					Chart chart = grafanaConverterHelper.buildChart(panel);
+					dashboardSectionRow.addChartsItem(chart);
+				}
 			}
 
 			dashboardSection.addRowsItem(dashboardSectionRow);
@@ -92,106 +108,5 @@ public class GrafanaConverter implements Converter {
 		}
 
 		return models;
-	}
-
-	private Chart getChartFromPanel(GrafanaPanel panel) {
-		Chart chart = new Chart();
-
-		chart.setName(panel.getTitle());
-		chart.setDescription(panel.getDescription());
-		chart.setSummarization(SummarizationEnum.MEAN);
-
-		ChartSettings chartSettings = new ChartSettings();
-		chartSettings.setType(getChartType(panel));
-		if (panel.isPercentage()) {
-			chartSettings.setStackType(StackTypeEnum.EXPAND);
-		}
-
-		// Queries
-		if (panel.getTargets() != null) {
-			for (GrafanaPanelTarget target : panel.getTargets()) {
-				ChartSourceQuery chartSourceQuery = new ChartSourceQuery();
-				chartSourceQuery.setDisabled(target.isHide());
-				chartSourceQuery.setName(target.getRefId());
-
-				String query = target.getTargetFull() != null && !target.getTargetFull().equals("") ? target.getTargetFull() : target.getTarget();
-				chartSourceQuery.setQuery(expressionBuilder.buildExpression(query));
-
-				chart.addSourcesItem(chartSourceQuery);
-			}
-		}
-
-		// Y-axes
-		if (panel.getYaxes() != null && panel.getYaxes().size() > 0) {
-			chart.setBase(panel.getYaxes().get(0).getLogBase());
-			GrafanaPanelYAxis y0 = panel.getYaxes().get(0);
-			if (y0.getMin() != null && !y0.getMin().equals("")) {
-				chartSettings.setYmin(Double.valueOf(y0.getMin()));
-			}
-			if (y0.getMax() != null && !y0.getMax().equals("")) {
-				chartSettings.setYmax(Double.valueOf(y0.getMax()));
-			}
-			if (y0.getLabel() != null && !y0.getLabel().equals("")) {
-				chart.setUnits(y0.getLabel());
-			}
-			if (panel.getYaxes().size() > 1) {
-				GrafanaPanelYAxis y1 = panel.getYaxes().get(1);
-				if (y1.getMin() != null && !y1.getMin().equals("")) {
-					chartSettings.setYmin(Double.valueOf(y1.getMin()));
-				}
-				if (y1.getMax() != null && !y1.getMax().equals("")) {
-					chartSettings.setYmax(Double.valueOf(y1.getMax()));
-				}
-				if (y1.getLabel() != null && !y1.getLabel().equals("")) {
-					chartSettings.setY1Units(y1.getLabel());
-				}
-			}
-		}
-
-		// Legend
-		GrafanaPanelLegend legend = panel.getLegend();
-		if (legend != null && legend.isShow()) {
-			chartSettings.setFixedLegendEnabled(true);
-
-			if (legend.isRightSide()) {
-				chartSettings.setFixedLegendPosition(FixedLegendPositionEnum.RIGHT);
-			} else {
-				chartSettings.setFixedLegendPosition(FixedLegendPositionEnum.BOTTOM);
-			}
-
-			if (legend.isCurrent()) {
-				chartSettings.addFixedLegendDisplayStatsItem("CURRENT");
-			}
-			if (legend.isAvg()) {
-				chartSettings.addFixedLegendDisplayStatsItem("MEAN");
-			}
-			if (legend.isMin()) {
-				chartSettings.addFixedLegendDisplayStatsItem("MIN");
-			}
-			if (legend.isMax()) {
-				chartSettings.addFixedLegendDisplayStatsItem("MAX");
-			}
-			if (legend.isTotal()) {
-				chartSettings.addFixedLegendDisplayStatsItem("SUM");
-			}
-			if (legend.isValues()) {
-				chartSettings.addFixedLegendDisplayStatsItem("COUNT");
-			}
-		}
-
-
-		return chart;
-	}
-
-	private TypeEnum getChartType(GrafanaPanel panel) {
-		if (panel.getType().equals("graph")) {
-			if (panel.isStack()) {
-				return TypeEnum.STACKED_AREA;
-			}
-
-			return TypeEnum.LINE;
-		}
-
-		return TypeEnum.LINE;
 	}
 }

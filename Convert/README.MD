@@ -38,7 +38,7 @@ Individual converters may also include additional properties.  Each converter wi
 ## Writer
 The framework includes a 2 main mechanisms to output converted artifacts. Either to Wavefront instance or to a folder on disk.
 
-Wavefront: `come.wavefront.labs.convert.writer.WavefrontPublisher`
+Wavefront: `com.wavefront.labs.convert.writer.WavefrontPublisher`
 
 Folder: `com.wavefront.labs.convert.writer.FolderWriter`
 

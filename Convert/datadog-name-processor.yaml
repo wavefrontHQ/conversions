@@ -15,3 +15,13 @@ rules:
       search  : '^load\.(.*)$'
       replace : 'system.load$1'
 
+    - rule    : MySql - The current number of nodes in the Galera cluster (No equivalent from Telegraf)
+      match   : 'mysql.galera.wsrep_cluster_size'
+      search  : 'mysql.galera.wsrep_cluster_size'
+      replace : 'mysql.galera.wsrep_cluster_size'
+
+    - rule    : MySql - The current number of nodes in the Galera cluster
+      match   : 'mysql.galera.wsrep_cluster_size'
+      search  : 'mysql.galera.wsrep_cluster_size'
+      replace : 'mysql.galera.wsrep_cluster_size'
+

@@ -6,23 +6,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-@JsonIgnoreProperties({"read_only", "created", "created_by", "modified", "new_id"})
-public class DatadogTimeboard {
+@JsonIgnoreProperties({"notify_list", "author_name", "is_read_only", "url", "created_at", "modified_at", "modified", "author_handle", "layout_type", "template_variable_presets"})
+public class DatadogTimeboard2 {
 
-	private List<DatadogGraph> graphs;
 	@JsonProperty("template_variables")
 	private List<DatadogTemplateVariable> templateVariables;
 	private String description;
+	private String id;
 	private String title;
-	private int id;
-
-	public List<DatadogGraph> getGraphs() {
-		return graphs;
-	}
-
-	public void setGraphs(List<DatadogGraph> graphs) {
-		this.graphs = graphs;
-	}
+	private List<DatadogWidget> widgets;
 
 	public List<DatadogTemplateVariable> getTemplateVariables() {
 		return templateVariables;
@@ -40,6 +32,14 @@ public class DatadogTimeboard {
 		this.description = description;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -48,11 +48,9 @@ public class DatadogTimeboard {
 		this.title = title;
 	}
 
-	public int getId() {
-		return id;
-	}
+	public List<DatadogWidget> getWidgets() { return widgets; }
 
-	public void setId(int id) {
-		this.id = id;
+	public void setWidgets(List<DatadogWidget> widgets) {
+		this.widgets = widgets;
 	}
 }

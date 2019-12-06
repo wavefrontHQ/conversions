@@ -61,8 +61,10 @@ public class WavefrontPublisher implements Writer {
 			} else {
 				dashboardApi.createDashboard(dashboard);
 			}
+			com.wavefront.labs.convert.utils.Tracker.increment("\"WavefrontPublisher::writeDashboard Successful (Count)\"");
 		} catch (ApiException e) {
 			logger.error("API Exception creating dashboard: " + dashboard.getName(), e);
+			com.wavefront.labs.convert.utils.Tracker.increment("\"WavefrontPublisher::writeDashboard Exception (Count)\"");
 		}
 	}
 
@@ -90,7 +92,7 @@ public class WavefrontPublisher implements Writer {
 		boolean sendEmail = Boolean.getBoolean(properties.getProperty("convert.writer.publish.user.sendEmail", "false"));
 		try {
 
-			new UserApi(apiClient).createOrUpdateUser(sendEmail, user);
+			new UserApi(apiClient).createOrUpdateUser(user, sendEmail);
 		} catch (ApiException e) {
 			logger.error("API Exception creating user: " + user.getEmailAddress(), e);
 		}

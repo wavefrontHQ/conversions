@@ -43,6 +43,7 @@ public class Convert {
 		}
 
 		logger.info("Convert to Wavefront finished!");
+		logger.error(com.wavefront.labs.convert.utils.Tracker.map);
 	}
 
 	private List doConvert(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, IOException {

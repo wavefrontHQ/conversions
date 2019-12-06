@@ -53,6 +53,7 @@ public class DatadogExpressionBuilder extends DefaultExpressionBuilder {
 		functionMap.put("per_hour", TimeFunctions::perHour);
 		functionMap.put("dt", NotSupported::warning);
 		functionMap.put("diff", TimeFunctions::diff);
+		functionMap.put("forecast", PredictiveFunctions::forecast);
 		functionMap.put("derivative", NotSupported::warning);
 		functionMap.put("ewma_3", MovingFunctions::ewma3);
 		functionMap.put("ewma_5", MovingFunctions::ewma5);
@@ -185,69 +186,73 @@ public class DatadogExpressionBuilder extends DefaultExpressionBuilder {
 
 	private String makeMetricQuery(DatadogQuery datadogQuery) {
 
-		String query = "ts(\"" + buildMetricName(datadogQuery.getMetric()) + "\"";
+		String query = datadogQuery.getNumeral();
+		if (datadogQuery.getMetric() != null && !"".equals(datadogQuery.getMetric())) {
+			query = "ts(\"" + buildMetricName(datadogQuery.getMetric()) + "\"";
 
-		List<String> scopes = datadogQuery.getScopes();
-		if (scopes != null && scopes.size() > 0) {
+			List<String> scopes = datadogQuery.getScopes();
+			if (scopes != null && scopes.size() > 0) {
 
-			if (!scopes.get(0).equals("*")) {
-				StringJoiner filters = new StringJoiner(" and ", ", ", "");
+				if (!scopes.get(0).equals("*")) {
+					StringJoiner filters = new StringJoiner(" and ", ", ", "");
 
-				for (String scope : scopes) {
-					boolean notFilter = false;
-					String filterValue = null;
+					for (String scope : scopes) {
+						boolean notFilter = false;
+						String filterValue = null;
 
-					if (scope.startsWith("!")) {
-						scope = scope.substring(1);
-						notFilter = true;
-					}
+						if (scope.startsWith("!")) {
+							scope = scope.substring(1);
+							notFilter = true;
+						}
 
-					if (scope.startsWith("$")) {
-						String name = scope.substring(1);
-						if (variablesMap.containsKey(name)) {
-							Variable variable = variablesMap.get(name);
+						if (scope.startsWith("$")) {
+							String name = scope.substring(1);
+							if (variablesMap.containsKey(name)) {
+								Variable variable = variablesMap.get(name);
 
-							if (variable.isGeneric()) {
-								filterValue = "${" + variable.getName() + "}";
+								if (variable.isGeneric()) {
+									filterValue = "${" + variable.getName() + "}";
 
-							} else if (!dropTags.contains(variable.getTagName())) {
-								filterValue = variable.getTagName() + "=\"${" + variable.getName() + "}\"";
-								if (variable.getMetric() == null) {
-									variable.setMetric(datadogQuery.getMetric());
+								} else if (!dropTags.contains(variable.getTagName())) {
+									filterValue = variable.getTagName() + "=\"${" + variable.getName() + "}\"";
+									if (variable.getMetric() == null) {
+										variable.setMetric(datadogQuery.getMetric());
+									}
 								}
 							}
-						}
+							com.wavefront.labs.convert.utils.Tracker.increment("\"Ignored Filters In Chart Count\"");
 
-					} else {
-						String[] scopeParts = scope.split(":");
+						} else {
+							String[] scopeParts = scope.split(":");
 
-						if (scopeParts.length > 1) {
-							if (!dropTags.contains(scopeParts[0])) {
-								String tagName = buildName(scopeParts[0], "tagName");
-								String tagValue = buildName(scopeParts[1], "tagValue");
-								filterValue = tagName + "=\"" + tagValue + "\"";
+							if (scopeParts.length > 1) {
+								if (!dropTags.contains(scopeParts[0])) {
+									String tagName = buildName(scopeParts[0], "tagName");
+									String tagValue = buildName(scopeParts[1], "tagValue");
+									filterValue = tagName + "=\"" + tagValue + "\"";
+								}
+							} else if (!dropTags.contains(scope)) {
+								String tagName = buildName(scope, "tagName");
+								filterValue = "tag=\"" + tagName + "\"";
 							}
-						} else if (!dropTags.contains(scope)) {
-							String tagName = buildName(scope, "tagName");
-							filterValue = "tag=\"" + tagName + "\"";
+						}
+
+						if (filterValue != null) {
+							if (notFilter) {
+								filterValue = "not " + filterValue;
+							}
+							filters.add(filterValue);
 						}
 					}
 
-					if (filterValue != null) {
-						if (notFilter) {
-							filterValue = "not " + filterValue;
-						}
-						filters.add(filterValue);
+					if (filters.length() > 2) {
+						query = query + filters;
 					}
-				}
-
-				if (filters.length() > 2) {
-					query = query + filters;
 				}
 			}
-		}
 
-		query = query + ")";
+			query = query + ")";
+		}
 
 		return query;
 	}

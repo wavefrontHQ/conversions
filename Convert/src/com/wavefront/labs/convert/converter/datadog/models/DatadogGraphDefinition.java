@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 
-@JsonIgnoreProperties({"autoscale", "status", "markers", "style", "group", "noMetricHosts", "scope", "noGroupHosts", "notes"})
+@JsonIgnoreProperties({"autoscale", "status", "markers", "style", "group", "noMetricHosts", "scope", "noGroupHosts", "notes", "show_legend", "legend_size"})
 public class DatadogGraphDefinition {
 
 	private String viz;

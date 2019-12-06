@@ -16,10 +16,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class DatadogTimeboardConverter extends AbstractDatadogConverter {
-	private static final Logger logger = LogManager.getLogger(DatadogTimeboardConverter.class);
+public class DatadogTimeboardConverter2 extends AbstractDatadogConverter {
+	private static final Logger logger = LogManager.getLogger(DatadogTimeboardConverter2.class);
 
-	private DatadogTimeboard datadogTimeboard;
+	private DatadogTimeboard2 datadogTimeboard;
 	private DatadogExpressionBuilder expressionBuilder;
 
 	private boolean parsingErrorFlag = false;
@@ -60,13 +60,13 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 	private void parseFromId(String id) {
 		String apiKey = properties.getProperty("datadog.api.key");
 		String applicationKey = properties.getProperty("datadog.application.key");
-		String url = "https://app.datadoghq.com/api/v1/dash/" + id;
+		String url = "https://api.datadoghq.com/api/v1/dashboard/" + id;
 		url += "?api_key=" + apiKey;
 		url += "&application_key=" + applicationKey;
 
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			datadogTimeboard = mapper.convertValue(mapper.readTree(new URL(url)).get("dash"), DatadogTimeboard.class);
+			datadogTimeboard = mapper.convertValue(mapper.readTree(new URL(url)), DatadogTimeboard2.class);
 		} catch (Exception e) {
 			parsingErrorFlag = true;
 			logger.error("Could not get dashboard via API: " + id, e);
@@ -75,13 +75,13 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 
 	private void parseFromFile(File file) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
-		datadogTimeboard = mapper.convertValue(mapper.readTree(file).get("dash"), DatadogTimeboard.class);
+		datadogTimeboard = mapper.convertValue(mapper.readTree(file).get("dash"), DatadogTimeboard2.class);
 	}
 
 	@Override
 	public List convert() {
 
-		logger.info("\"Converting Datadog Timeboard\"" + datadogTimeboard.getId() + "/" + datadogTimeboard.getTitle());
+		logger.info("Converting Datadog Timeboard: " + datadogTimeboard.getId() + "/" + datadogTimeboard.getTitle());
 
 		expressionBuilder.initVariablesMap(datadogTimeboard.getTemplateVariables());
 
@@ -94,18 +94,20 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 		dashboardSection.setName("Charts");
 
 		DashboardSectionRow dashboardSectionRow = new DashboardSectionRow();
-		List<DatadogGraph> graphs = datadogTimeboard.getGraphs();
-		for (int i = 0; i < graphs.size(); i++) {
+		List<DatadogWidget> widgets = datadogTimeboard.getWidgets();
+		for (int i = 0; i < widgets.size(); i++) {
 			if (i % 3 == 0 && i > 0) {
 				dashboardSection.addRowsItem(dashboardSectionRow);
 				dashboardSectionRow = new DashboardSectionRow();
 			}
 
 			try {
-				Chart chart = createChartfromDatadogGraph(graphs.get(i));
+				Chart chart = createChartfromDatadogWidget(widgets.get(i));
 				dashboardSectionRow.addChartsItem(chart);
 			} catch (Exception ex) {
-				//logger.error("Exception while creating chart", ex);
+				logger.error("Exception while creating chart", ex);
+				com.wavefront.labs.convert.utils.Tracker.addToList("\"Chart Creation Exception\"", "Dashboard ("+datadogTimeboard.getTitle()+") Chart ("+widgets.get(i).getDefinition().getTitle()+")");
+				com.wavefront.labs.convert.utils.Tracker.increment("\"Chart Creation Exception Count\"");
 			}
 		}
 
@@ -120,7 +122,7 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 		if (variablesMap.size() > 0) {
 			Map<String, DashboardParameterValue> dashboardParameters = new HashMap();
 			for (Variable variable : variablesMap.values()) {
-				dashboardParameters.put(variable.getName(), createDashboardParameter(variable));
+				//dashboardParameters.put(variable.getName(), createDashboardParameter(variable));
 			}
 			dashboard.setParameterDetails(dashboardParameters);
 			dashboard.setDisplayQueryParameters(true);
@@ -131,29 +133,30 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 		return models;
 	}
 
-	private Chart createChartfromDatadogGraph(DatadogGraph datadogGraph) {
+	private Chart createChartfromDatadogWidget(DatadogWidget datadogWidget) {
 		Chart chart = new Chart();
-		chart.setName(datadogGraph.getTitle());
+		chart.setName(datadogWidget.getDefinition().getTitle());
 
 		chart.setSummarization(getChartSummarization("avg"));
 		ChartSettings chartSettings = new ChartSettings();
 		chartSettings.setType(TypeEnum.LINE);
 
-		if (datadogGraph.getDefinition() != null) {
-			DatadogGraphDefinition definition = datadogGraph.getDefinition();
+		if (datadogWidget.getDefinition() != null) {
+			DatadogGraphDefinition2 definition = datadogWidget.getDefinition();
 			if (definition.getRequests() != null && definition.getRequests().size() > 0) {
-				String viz = definition.getViz();
+				String viz = definition.getType();
 				String vizType = definition.getRequests().get(0).getType();
 				chartSettings.setType(getChartType(viz, vizType));
 
-				if (chartSettings.getType() == TypeEnum.SPARKLINE && definition.getPrecision() != null && !definition.getPrecision().equals("")) {
-					chartSettings.setSparklineDecimalPrecision(Integer.parseInt(definition.getPrecision()));
+				if (chartSettings.getType() == TypeEnum.SPARKLINE && definition.getTitle() != null && !definition.getTitle().equals("")) {
+					// TODO: Get the correct precision
+					chartSettings.setSparklineDecimalPrecision(Integer.parseInt("1"));
 				}
 
 				String aggregator = definition.getRequests().get(0).getAggregator();
 				chart.setSummarization(getChartSummarization(aggregator));
 
-				for (DatadogGraphRequest request : definition.getRequests()) {
+				for (DatadogGraphRequest request : definition.getRequestsAsList()) {
 					String[] queries = expressionBuilder.buildExpression(request.getQuery()).split(DatadogExpressionBuilder.QUERY_SEPARATOR_SPLIT);
 					for (String query : queries) {
 						ChartSourceQuery chartSourceQuery = new ChartSourceQuery();

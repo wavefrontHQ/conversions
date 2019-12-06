@@ -10,6 +10,7 @@ public class DatadogQuery {
 
 	private String aggregator;
 	private String metric;
+	private String numeral;
 	private List<String> scopes;
 	private List<String> groups;
 	private List<DatadogFunction> functions;
@@ -69,11 +70,12 @@ public class DatadogQuery {
 
 				case ')':
 					if (nameEnd == 0) {
+						numeral = query.substring(start, i-1);
 						return start;
 					} else {
 						argEnd = i;
 						functions.add(createDatadogFunction(start, nameEnd, argStart, argEnd));
-						return i;
+						return ((i + 1) < query.length() && query.charAt(i+1) == ',') ? (i + 1) : i;
 					}
 
 				default:
@@ -162,6 +164,8 @@ public class DatadogQuery {
 	public String getAggregator() {
 		return aggregator;
 	}
+
+	public String getNumeral() { return numeral; }
 
 	public String getMetric() {
 		return metric;

@@ -262,7 +262,17 @@ public class GrafanaConverterHelper {
 				chartSourceQuery.setDisabled(target.isHide());
 				chartSourceQuery.setName(target.getRefId());
 
-				String query = target.getTargetFull() != null && !target.getTargetFull().equals("") ? target.getTargetFull() : target.getTarget();
+				String query;
+				if (target.getExpr() != null && !target.getExpr().equals("")) {
+					query = target.getExpr();
+				} else if (target.getTargetFull() != null && !target.getTargetFull().equals("")) {
+					query = target.getTargetFull();
+				} else if (target.getTarget() != null && !target.getTarget().equals("")){
+					query = target.getTarget();
+				} else {
+					continue;
+				}
+
 				chartSourceQuery.setQuery(expressionBuilder.buildExpression(query));
 
 				chartSourceQueries.add(chartSourceQuery);

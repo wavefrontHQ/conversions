@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -38,8 +39,8 @@ public class GrafanaConverter implements Converter {
 		String expressionBuilderClass = properties.getProperty("convert.expressionBuilder", "");
 		if (!expressionBuilderClass.equals("")) {
 			try {
-				expressionBuilder = (ExpressionBuilder) Class.forName(expressionBuilderClass).newInstance();
-			} catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+				expressionBuilder = (ExpressionBuilder) Class.forName(expressionBuilderClass).getDeclaredConstructor().newInstance();
+			} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException e) {
 				logger.error("Could not create instance of: " + expressionBuilderClass, e);
 				expressionBuilder = new SimpleExpressionBuilder();
 			}

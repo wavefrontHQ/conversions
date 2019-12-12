@@ -6,6 +6,8 @@ import com.wavefront.labs.convert.converter.rrd.RRDExpressionBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class Def extends Definition {
 	private static final Logger logger = LogManager.getLogger(Def.class);
 
@@ -35,8 +37,8 @@ public class Def extends Definition {
 		String expressionBuilderClass = context.getProperties().getProperty("convert.expressionBuilder", "");
 		if (!expressionBuilderClass.equals("")) {
 			try {
-				expressionBuilder = (ExpressionBuilder) Class.forName(expressionBuilderClass).newInstance();
-			} catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+				expressionBuilder = (ExpressionBuilder) Class.forName(expressionBuilderClass).getDeclaredConstructor().newInstance();
+			} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException e) {
 				logger.error("Could not create instance of: " + expressionBuilderClass, e);
 				expressionBuilder = new RRDExpressionBuilder();
 			}

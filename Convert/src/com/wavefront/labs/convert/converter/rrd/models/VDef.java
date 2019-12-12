@@ -12,6 +12,7 @@ import java.util.function.Function;
 public class VDef extends Definition {
 
 	private static HashMap<String, Function<Deque<String>, String>> functionMap = new HashMap();
+
 	static {
 		functionMap.put("MAXIMUM", NotSupported::warning);
 		functionMap.put("MINIMUM", NotSupported::warning);
@@ -27,7 +28,7 @@ public class VDef extends Definition {
 		functionMap.put("LSLCORREL", NotSupported::warning);
 	}
 
-	public VDef (String line) {
+	public VDef(String line) {
 		super(line);
 	}
 

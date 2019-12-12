@@ -20,7 +20,7 @@ public class DefaultExpressionBuilder implements ExpressionBuilder {
 
 	protected Properties properties;
 
-	private NameProcessor nameProcessor;
+	protected NameProcessor nameProcessor;
 
 	@Override
 	public void init(Properties properties) {

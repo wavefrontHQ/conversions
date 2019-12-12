@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -38,7 +39,7 @@ public class Convert {
 
 			doWrite(models);
 
-		} catch (IOException | InstantiationException | ClassNotFoundException | IllegalAccessException e) {
+		} catch (IOException | InstantiationException | ClassNotFoundException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
 			logger.error("Fatal error in start.", e);
 		}
 
@@ -46,10 +47,10 @@ public class Convert {
 		logger.error(com.wavefront.labs.convert.utils.Tracker.map);
 	}
 
-	private List doConvert(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, IOException {
+	private List doConvert(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, IOException, NoSuchMethodException, InvocationTargetException {
 		logger.info("Start Conversion");
 
-		Converter converter = (Converter) Class.forName(properties.getProperty("convert.converter")).newInstance();
+		Converter converter = (Converter) Class.forName(properties.getProperty("convert.converter")).getDeclaredConstructor().newInstance();
 		converter.init(properties);
 
 		String filename = null;
@@ -83,11 +84,11 @@ public class Convert {
 		return converter.convert();
 	}
 
-	private void doWrite(List models) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+	private void doWrite(List models) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 		logger.info("Start Writing");
 
 		String generatorName = properties.getProperty("convert.writer", "com.wavefront.labs.convert.writer.WavefrontPublisher");
-		Writer writer = (Writer) Class.forName(generatorName).newInstance();
+		Writer writer = (Writer) Class.forName(generatorName).getDeclaredConstructor().newInstance();
 		writer.init(properties);
 
 		// tags can be separated by whitespace, comma, or semi-colon

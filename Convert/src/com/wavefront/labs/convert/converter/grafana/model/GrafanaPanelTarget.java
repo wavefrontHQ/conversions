@@ -10,6 +10,7 @@ public class GrafanaPanelTarget {
 	private String refId;
 	private String target;
 	private String targetFull;
+	private String expr;
 	private boolean textEditor;
 
 	public boolean isHide() {
@@ -50,6 +51,14 @@ public class GrafanaPanelTarget {
 
 	public void setTargetFull(String targetFull) {
 		this.targetFull = targetFull;
+	}
+
+	public String getExpr() {
+		return expr;
+	}
+
+	public void setExpr(String expr) {
+		this.expr = expr;
 	}
 
 	public boolean isTextEditor() {

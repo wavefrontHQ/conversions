@@ -211,7 +211,6 @@ public class DatadogTimeboardConverter2 extends AbstractDatadogConverter {
 		//dashboardParameterValue.setDynamicFieldType(DashboardParameterValue.DynamicFieldTypeEnum.TAG_KEY);
 		//dashboardParameterValue.setTagKey(variable.getValue());
 		//dashboardParameterValue.setQueryValue("ts(query.filter)");
-		dashboardParameterValue.setValue("");
 
 		return dashboardParameterValue;
 	}

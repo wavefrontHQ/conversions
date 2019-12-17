@@ -33,7 +33,13 @@ dependencies
     compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.2'
     compile 'com.squareup.okhttp:okhttp:2.7.5'
     compile 'com.google.code.gson:gson:2.6.2'
-    compile project(':wavefront-java-sdk')
+    compile 'org.threeten:threetenbp:1.4.0'
+    compile group: 'io.swagger.core.v3', name: 'swagger-annotations', version: '2.1.0'
+    compile group: 'io.swagger.codegen.v3', name: 'swagger-codegen-generators', version: '1.0.14'
+    compile group: 'javax.annotation', name: 'javax.annotation-api', version: '1.2'
+    compile group: 'com.squareup.okhttp', name: 'logging-interceptor', version: '2.7.5'
+    compile group: 'io.gsonfire', name: 'gson-fire', version: '1.8.3'
+    compile group: 'com.wavefront', name: 'wavefront-sdk-java', version: '1.15'
     compile 'junit:junit:4.12'
 }
 

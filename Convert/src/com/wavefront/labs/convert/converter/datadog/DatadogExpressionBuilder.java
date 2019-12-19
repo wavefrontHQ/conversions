@@ -24,7 +24,9 @@ public class DatadogExpressionBuilder extends DefaultExpressionBuilder {
 
 	private static final Pattern expressionListPattern = Pattern.compile("\\{.*?\\}|(\\+|-|\\*|\\/|;)");
 	private static final Pattern topConveniencePattern = Pattern.compile("^(top|bottom)(5|10|15|20)_?(mean|min|max|last|area|l2norm|norm)?$");
-	private static final Pattern operatorNumberPattern = Pattern.compile("(\\+|-|\\*|/)|(-?\\d+([.]\\d+)?)");
+
+//	NOTE: Including '(',')' as operators so they get added back to the query after parsing
+	private static final Pattern operatorNumberPattern = Pattern.compile("(\\(|\\)|\\+|-|\\*|/)|(-?\\d+([.]\\d+)?)");
 
 	private static final HashMap<String, Function<DatadogFunction, String>> functionMap = new HashMap();
 
@@ -274,12 +276,31 @@ public class DatadogExpressionBuilder extends DefaultExpressionBuilder {
 		ArrayList<String> expressionList = new ArrayList();
 
 		Matcher matcher = expressionListPattern.matcher(expression);
+		Pattern lParenMatcher = Pattern.compile("^\\(");
+		Pattern rParenMatcher = Pattern.compile("\\)$");
 
 		int lastPos = 0;
 		while (matcher.find()) {
 			if (matcher.group(1) != null) {
-				expressionList.add(expression.substring(lastPos, matcher.start()).trim());
+			    String subexpression = expression.substring(lastPos, matcher.start()).trim();
+
+			    if (lParenMatcher.matcher(subexpression).find()) {
+//			        Strip left parenthesis off expression, to be added back later (similar to how operators are handled)
+					expressionList.add("(");
+					expressionList.add(subexpression.substring(1,subexpression.length()));
+				}
+				else if (rParenMatcher.matcher(subexpression).find()) {
+//			        Strip right parenthesis off expression, to be added back later (similar to how operators are handled)
+					expressionList.add(subexpression.substring(0, subexpression.length() - 1));
+					expressionList.add(")");
+
+				}
+				else {
+			    	expressionList.add(subexpression);
+				}
+
 				expressionList.add(matcher.group(1));
+
 				lastPos = matcher.end();
 			}
 		}

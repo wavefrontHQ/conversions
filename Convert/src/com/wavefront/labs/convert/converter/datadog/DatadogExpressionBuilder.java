@@ -91,10 +91,23 @@ public class DatadogExpressionBuilder extends DefaultExpressionBuilder {
 		variablesMap = new HashMap();
 	}
 
-	@Override
-	public String buildMetricName(String orig) {
+
+	public String buildMetricName(DatadogQuery datadogQuery) {
+		String orig = datadogQuery.getMetric();
+		List<String> scopes = datadogQuery.getScopes();
+		if (scopes != null && scopes.size() > 0) {
+			for (String scope : scopes) {
+				String[] scopeParts = scope.split(":");
+				if (scopeParts.length > 1 && scopeParts[0].equals("origin")) {
+					String origin = scopeParts[1];
+					String matcher = "^datadog\\.nozzle\\.(.*)$";
+					String replace = "datadog.nozzle." + origin + ".$1";
+					orig = orig.replaceAll(matcher,replace);
+				}
+			}
+		}
 		String metricName = buildName(orig, "metric");
-		metricName = metricName.replaceAll("_", underscoreReplace);
+		//metricName = metricName.replaceAll("_", underscoreReplace);
 		return super.buildMetricName(metricName);
 	}
 
@@ -188,7 +201,7 @@ public class DatadogExpressionBuilder extends DefaultExpressionBuilder {
 
 		String query = datadogQuery.getNumeral();
 		if (datadogQuery.getMetric() != null && !"".equals(datadogQuery.getMetric())) {
-			query = "ts(\"" + buildMetricName(datadogQuery.getMetric()) + "\"";
+			query = "ts(\"" + buildMetricName(datadogQuery) + "\"";
 
 			List<String> scopes = datadogQuery.getScopes();
 			if (scopes != null && scopes.size() > 0) {

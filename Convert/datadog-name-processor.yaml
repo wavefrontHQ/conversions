@@ -25,3 +25,17 @@ rules:
       search  : 'mysql.galera.wsrep_cluster_size'
       replace : 'mysql.galera.wsrep_cluster_size'
 
+    - rule    : datadog.nozzle goes away
+      match   : '^datadog\.nozzle\..*$'
+      search  : '^datadog\.nozzle\.(.*)$'
+      replace  : 'pws-prod-test.$1'
+
+    - rule    : CapacityRemaining gets MiB
+      match   : '^.*\.Capacity[a-zA-Z]*Memory$'
+      search  : '^(.*\.Capacity[a-zA-Z]*Memory)$'
+      replace  : '$1.MiB'
+
+#    - rule    : origin goes away
+#      match   : '^.*origin.*$'
+#      search   : '^.*origin.*$'
+#      replace  : 'found.origin'

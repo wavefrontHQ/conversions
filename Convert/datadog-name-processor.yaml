@@ -34,6 +34,10 @@ rules:
       match   : '^.*\.Capacity[a-zA-Z]*Memory$'
       search  : '^(.*\.Capacity[a-zA-Z]*Memory)$'
       replace  : '$1.MiB'
+    - rule    : system.healthy gets ".b"
+      match   : '^.*\.system.healthy$'
+      search  : '^(.*\.system.healthy)$'
+      replace  : '$1.b'
 
 #    - rule    : origin goes away
 #      match   : '^.*origin.*$'

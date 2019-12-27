@@ -33,7 +33,7 @@ public class GrapherDashboardConverter extends AbstractGrapherConverter {
 	}
 
 	@Override
-	public void parse(Object data) throws IOException {
+	public void parseDashboards(Object data) throws IOException {
 
 		if (!(data instanceof String)) {
 			logger.error("Invalid type to parse: " + data.getClass().getName());
@@ -62,7 +62,7 @@ public class GrapherDashboardConverter extends AbstractGrapherConverter {
 				if (definition != null) {
 					GrapherChartConverter grapherChartConverter = new GrapherChartConverter();
 					grapherChartConverter.init(properties);
-					grapherChartConverter.parse(definition);
+					grapherChartConverter.parseDashboards(definition);
 					grapherDashboardGraph.setConverter(grapherChartConverter);
 				}
 
@@ -96,7 +96,7 @@ public class GrapherDashboardConverter extends AbstractGrapherConverter {
 	}
 
 	@Override
-	public List convert() {
+	public List convertDashboards() {
 		List models = new ArrayList();
 
 		int chartsPerRow = Integer.parseInt(properties.getProperty("grapher.dashboard.row.charts", "3"));
@@ -130,7 +130,7 @@ public class GrapherDashboardConverter extends AbstractGrapherConverter {
 
 				addFilter = addFilter || !grapherDashboardGraph.getFilter().equals("");
 
-				List innerModels = grapherDashboardGraph.getConverter().convert();
+				List innerModels = grapherDashboardGraph.getConverter().convertDashboards();
 				for (Object innerModel : innerModels) {
 
 					if (innerModel instanceof Chart) {
@@ -272,5 +272,15 @@ public class GrapherDashboardConverter extends AbstractGrapherConverter {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public void parseAlerts(Object data) throws IOException {
+		throw new RuntimeException("Method not implemented");
+	}
+
+	@Override
+	public List convertAlerts() {
+		throw new RuntimeException("Method not implemented");
 	}
 }

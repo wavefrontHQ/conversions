@@ -19,8 +19,8 @@ public abstract class AbstractGrapherConverter implements Converter {
 	}
 
 	@Override
-	public abstract void parse(Object data) throws IOException;
+	public abstract void parseDashboards(Object data) throws IOException;
 
 	@Override
-	public abstract List convert();
+	public abstract List convertDashboards();
 }

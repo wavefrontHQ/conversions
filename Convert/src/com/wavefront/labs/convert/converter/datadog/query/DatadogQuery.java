@@ -14,6 +14,9 @@ public class DatadogQuery {
 	private List<String> scopes;
 	private List<String> groups;
 	private List<DatadogFunction> functions;
+	private String conditionOperator;
+	private String conditionValue;
+	private DatadogQuery subQuery = null;
 
 	public DatadogQuery(String query) {
 		this.query = query;
@@ -51,11 +54,18 @@ public class DatadogQuery {
 
 			switch (query.charAt(i)) {
 				case '(':
-					if (nameEnd == 0) {
-						nameEnd = i;
-						argStart = parseFunction(i + 1);
-						i = argStart;
+					if (start < i && getMatchingCharFor(i) < query.indexOf(':')) {
+						// Handling for query in the below format, which is used in alert:
+						// avg(last_5m):avg:aws.rds.cpuutilization{function:auth,env:prod} > 90
+						aggregator = query.substring(start, i);
 						break;
+					} else {
+						if (nameEnd == 0) {
+							nameEnd = i;
+							argStart = parseFunction(i + 1);
+							i = argStart;
+							break;
+						}
 					}
 
 				case '{':
@@ -69,13 +79,21 @@ public class DatadogQuery {
 					}
 
 				case ')':
-					if (nameEnd == 0) {
-						numeral = query.substring(start, i-1);
-						return start;
+					if (query.length() > (i+1) && query.charAt(i+1) == ':') {
+						// Handling for query in the below format, which is used in alert:
+						// avg(last_5m):avg:aws.rds.cpuutilization{function:auth,env:prod} > 90
+						String subquery = query.substring(i+2, query.length());
+						subQuery = new DatadogQuery(subquery);
+						return i;
 					} else {
-						argEnd = i;
-						functions.add(createDatadogFunction(start, nameEnd, argStart, argEnd));
-						return ((i + 1) < query.length() && query.charAt(i+1) == ',') ? (i + 1) : i;
+						if (nameEnd == 0) {
+							numeral = query.substring(start, i - 1);
+							return start;
+						} else {
+							argEnd = i;
+							functions.add(createDatadogFunction(start, nameEnd, argStart, argEnd));
+							return ((i + 1) < query.length() && query.charAt(i + 1) == ',') ? (i + 1) : i;
+						}
 					}
 
 				default:
@@ -133,6 +151,26 @@ public class DatadogQuery {
 		return new DatadogFunction(name);
 	}
 
+	private int getMatchingCharFor(int index) {
+		int matchIndex = -1;
+
+		char c = query.charAt(index);
+		int n = 1;
+		if (c == '(') {
+			char mc = ')';
+			for (int i=index+1; i<query.length(); i++) {
+				if (query.charAt(i) == mc) { n--; }
+				else if (query.charAt(i) == c) { n++; }
+				if (n == 0) {
+					matchIndex = i;
+					break;
+				}
+			}
+		}
+
+		return matchIndex;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder ret = new StringBuilder(aggregator + ":" + metric);
@@ -165,10 +203,12 @@ public class DatadogQuery {
 		return aggregator;
 	}
 
-	public String getNumeral() { return numeral; }
+	public String getNumeral() {
+		return (subQuery != null) ? subQuery.numeral : numeral;
+	}
 
 	public String getMetric() {
-		return metric;
+		return (subQuery != null) ? subQuery.metric : metric;
 	}
 
 	public List<String> getScopes() {
@@ -181,5 +221,9 @@ public class DatadogQuery {
 
 	public List<DatadogFunction> getFunctions() {
 		return functions;
+	}
+
+	public DatadogQuery getSubQuery() {
+		return subQuery;
 	}
 }

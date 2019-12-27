@@ -5,14 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({"layout"})
 public class DatadogWidget {
 
-	private DatadogGraphDefinition2 definition;
+	private DatadogGraphDefinition definition;
 	private String id;
 
-	public DatadogGraphDefinition2 getDefinition() {
+	public DatadogGraphDefinition getDefinition() {
 		return definition;
 	}
 
-	public void setDefinition(DatadogGraphDefinition2 definition) {
+	public void setDefinition(DatadogGraphDefinition definition) {
 		this.definition = definition;
 	}
 

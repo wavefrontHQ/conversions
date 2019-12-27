@@ -15,7 +15,7 @@ public class GrafanaConverterTest {
 
 		GrafanaConverter grafanaConverter = new GrafanaConverter();
 		grafanaConverter.init(properties);
-		grafanaConverter.parse(new File("test_resources/grafana/grafana_dashboard.json"));
+		grafanaConverter.parseDashboards(new File("test_resources/grafana/grafana_dashboard.json"));
 	}
 
 	@Test
@@ -26,10 +26,10 @@ public class GrafanaConverterTest {
 
 		GrafanaConverter grafanaConverter = new GrafanaConverter();
 		grafanaConverter.init(properties);
-		grafanaConverter.parse(new File("test_resources/grafana/grafana_dashboard.json"));
+		grafanaConverter.parseDashboards(new File("test_resources/grafana/grafana_dashboard.json"));
 
 
-		List models = grafanaConverter.convert();
+		List models = grafanaConverter.convertDashboards();
 
 	}
 

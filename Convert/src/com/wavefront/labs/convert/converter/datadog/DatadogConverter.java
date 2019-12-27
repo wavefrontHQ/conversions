@@ -16,7 +16,7 @@ public class DatadogConverter extends AbstractDatadogConverter {
 	}
 
 	@Override
-	public void parse(Object data) throws IOException {
+	public void parseDashboards(Object data) throws IOException {
 
 		AbstractDatadogConverter converter;
 
@@ -27,18 +27,47 @@ public class DatadogConverter extends AbstractDatadogConverter {
 		}
 
 		converter.init(properties);
-		converter.parse(data);
+		converter.parseDashboards(data);
 
 		converters.add(converter);
 	}
 
 	@Override
-	public List convert() {
+	public List convertDashboards() {
 
 		List models = new ArrayList();
 
 		for (AbstractDatadogConverter converter : converters) {
-			models.addAll(converter.convert());
+			models.addAll(converter.convertDashboards());
+		}
+
+		return models;
+
+	}
+
+	@Override
+	public void parseAlerts(Object data) throws IOException {
+		AbstractDatadogConverter converter;
+
+		if (data == null) {
+			converter = new DatadogApiConverter();
+		} else {
+			converter = new DatadogTimeboardConverter();
+		}
+
+		converter.init(properties);
+		converter.parseAlerts(data);
+
+		converters.add(converter);
+	}
+
+	@Override
+	public List convertAlerts() {
+
+		List models = new ArrayList();
+
+		for (AbstractDatadogConverter converter : converters) {
+			models.addAll(converter.convertAlerts());
 		}
 
 		return models;

@@ -44,8 +44,10 @@ public class FolderWriter implements Writer {
 			file.mkdirs();
 
 			Files.write(Paths.get(file.getAbsolutePath() + File.separator + fileName), json.getBytes());
+			com.wavefront.labs.convert.utils.Tracker.increment("\"FolderWriter::writeDashboard Successful (Count)\"");
 		} catch (IOException e) {
 			logger.error("Error writing dashboard: " + dashboard.getName(), e);
+			com.wavefront.labs.convert.utils.Tracker.increment("\"FolderWriter::writeDashboard Exception (Count)\"");
 		}
 	}
 

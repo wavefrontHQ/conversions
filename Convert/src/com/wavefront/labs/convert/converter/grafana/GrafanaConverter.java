@@ -52,14 +52,14 @@ public class GrafanaConverter implements Converter {
 	}
 
 	@Override
-	public void parse(Object data) throws IOException {
+	public void parseDashboards(Object data) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		GrafanaDashboard grafanaDashboard = mapper.readValue((File) data, GrafanaDashboard.class);
 		grafanaDashboards.add(grafanaDashboard);
 	}
 
 	@Override
-	public List convert() {
+	public List convertDashboards() {
 
 		List models = new ArrayList();
 
@@ -108,5 +108,15 @@ public class GrafanaConverter implements Converter {
 		}
 
 		return models;
+	}
+
+	@Override
+	public void parseAlerts(Object data) throws IOException {
+		throw new RuntimeException("Method not implemented");
+	}
+
+	@Override
+	public List convertAlerts() {
+		throw new RuntimeException("Method not implemented");
 	}
 }

@@ -65,15 +65,34 @@ public class WavefrontPublisher implements Writer {
 		} catch (ApiException e) {
 			logger.error("API Exception creating dashboard: " + dashboard.getName(), e);
 			com.wavefront.labs.convert.utils.Tracker.increment("\"WavefrontPublisher::writeDashboard Exception (Count)\"");
+			System.out.println(new com.wavefront.rest.api.JSON().serialize(dashboard));
 		}
 	}
 
 	@Override
 	public void writeAlert(Alert alert) {
+
+		AlertApi alertApi = new AlertApi(apiClient);
+		boolean exists = false;
+
 		try {
-			new AlertApi(apiClient).createAlert(alert);
+			alertApi.getAlert(alert.getId());
+			exists = true;
 		} catch (ApiException e) {
 			logger.error("API Exception creating alert: " + alert.getName(), e);
+		}
+
+		try {
+			if (exists) {
+				alertApi.updateAlert(alert.getId(), alert);
+			} else {
+				alertApi.createAlert(alert);
+			}
+			com.wavefront.labs.convert.utils.Tracker.increment("\"WavefrontPublisher::writeAlert Successful (Count)\"");
+		} catch (ApiException e) {
+			logger.error("API Exception creating alert: " + alert.getName(), e);
+			com.wavefront.labs.convert.utils.Tracker.increment("\"WavefrontPublisher::writeAlert Exception (Count)\"");
+			System.out.println(new com.wavefront.rest.api.JSON().serialize(alert));
 		}
 	}
 

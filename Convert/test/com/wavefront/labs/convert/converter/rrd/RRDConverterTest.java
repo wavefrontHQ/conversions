@@ -13,9 +13,9 @@ public class RRDConverterTest {
 	@Test
 	public void fullTest() throws IOException {
 		RRDConverter rrdConverter = new RRDConverter();
-		rrdConverter.parse(new File("test_resources/rrd/response_times_def.txt"));
+		rrdConverter.parseDashboards(new File("test_resources/rrd/response_times_def.txt"));
 
-		List models = rrdConverter.convert();
+		List models = rrdConverter.convertDashboards();
 
 		for (Object model : models) {
 			if (model instanceof Chart) {

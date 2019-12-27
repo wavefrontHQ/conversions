@@ -12,7 +12,7 @@ public class DatadogConverterTest {
 	@Test
 	public void parseFile() throws Exception {
 		DatadogConverter datadogConverter = new DatadogConverter();
-		datadogConverter.parse(new File("test_resources/datadog/datadog_timeboard.json"));
+		datadogConverter.parseDashboards(new File("test_resources/datadog/datadog_timeboard.json"));
 
 
 	}

@@ -26,7 +26,7 @@ public class GrapherConverter extends AbstractGrapherConverter {
 	}
 
 	@Override
-	public void parse(Object data) throws IOException {
+	public void parseDashboards(Object data) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 
 		List<GrapherDashboard> grapherDashboards = new ArrayList();
@@ -50,13 +50,13 @@ public class GrapherConverter extends AbstractGrapherConverter {
 		for (GrapherDashboard grapherDashboard : grapherDashboards) {
 			GrapherDashboardConverter grapherDashboardConverter = new GrapherDashboardConverter();
 			grapherDashboardConverter.init(properties);
-			grapherDashboardConverter.parse(grapherDashboard.getData());
+			grapherDashboardConverter.parseDashboards(grapherDashboard.getData());
 			grapherDashboard.setConverter(grapherDashboardConverter);
 		}
 	}
 
 	@Override
-	public List convert() {
+	public List convertDashboards() {
 
 		List models = new ArrayList();
 
@@ -64,7 +64,7 @@ public class GrapherConverter extends AbstractGrapherConverter {
 
 			for (GrapherDashboard grapherDashboard : grapherDashboards) {
 				if (grapherDashboard.getConverter() != null) {
-					List dashboardModels = grapherDashboard.getConverter().convert();
+					List dashboardModels = grapherDashboard.getConverter().convertDashboards();
 
 					int count = 0;
 					String name = grapherDashboard.getName();
@@ -89,5 +89,15 @@ public class GrapherConverter extends AbstractGrapherConverter {
 		}
 
 		return models;
+	}
+
+	@Override
+	public void parseAlerts(Object data) throws IOException {
+		throw new RuntimeException("Method not implemented");
+	}
+
+	@Override
+	public List convertAlerts() {
+		throw new RuntimeException("Method not implemented");
 	}
 }

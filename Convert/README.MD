@@ -1,6 +1,6 @@
 # Wavefront Convert Framework
 
-This is a framework, and implementation to convert other metrics monitoring solutions into equivalent Wavefront artifacts. The system works by _Converting_ existing artifacts into equivalent Wavefront models, then _Generating_ the artifacts on the Wavefront platform from the models. Part of the conversaion process is also an ExpressionBuilder which allows you to convert the metric names into what they will be in Wavefront. Some systems have various limitations on what the metric names can be, or pershaps during the conversion process from one platform to another there will be manipulation of that name.  The ExpressionBuilder will do this conversion.
+This is a framework and implementation, to convert other metrics monitoring solutions into equivalent Wavefront artifacts. The system works by _Converting_ existing artifacts into equivalent Wavefront models, then _Generating_ the artifacts on the Wavefront platform from the models. Part of the conversion process is also an ExpressionBuilder which allows you to convert the metric names into what they will be in Wavefront. Some systems have various limitations on what the metric names can be, or perhaps during the conversion process from one platform to another there will be manipulation of that name.  The ExpressionBuilder will do this conversion.
 
 
 ## Supported Source Platforms for Convert
@@ -16,7 +16,7 @@ Depends on the Wavefront Java SDK which can be generated using swagger-codegen. 
 
 
 ## Framework Architecture
-This framework is meant to be layered in that a higher level converter can use the facilities of a lower level one as needed. The Grapher converter makes use of RRD since the internal tooling of Grapher is based on RRD chart definitions and tooling. 
+This framework is meant to be layered, in that a higher level converter can use the facilities of a lower level one as needed. The Grapher converter makes use of RRD since the internal tooling of Grapher is based on RRD chart definitions and tooling. 
 
 
 ## General Usage
@@ -28,7 +28,7 @@ The main Convert class part of the Core package takes 2 main arguments when run 
 
 
 ## Core Properties
-The following properties are part of the Core framework are are required for all conversion types
+The following properties are part of the Core framework and are required for all conversion types
 - `convert.converter`: Class which inherits from com.wavefront.labs.convert.Converter which will do the conversion
 - `convert.expression.builder`: Class which inherits from com.wavefront.labs.convert.ExpressionBuilder to manipulate metric name
 - `convert.writer`: Class which inherits from com.wavefront.labs.convert.Generator
@@ -36,7 +36,7 @@ The following properties are part of the Core framework are are required for all
 Individual converters may also include additional properties.  Each converter will describe their respective properties.
 
 ## Writer
-The framework includes a 2 main mechanisms to output converted artifacts. Either to Wavefront instance or to a folder on disk.
+The framework includes 2 main mechanisms to output converted artifacts. Either to Wavefront instance or to a folder on disk.
 
 Wavefront: `com.wavefront.labs.convert.writer.WavefrontPublisher`
 

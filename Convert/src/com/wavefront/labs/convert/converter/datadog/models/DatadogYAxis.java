@@ -2,7 +2,7 @@ package com.wavefront.labs.convert.converter.datadog.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties({"includeZero"})
+@JsonIgnoreProperties({"includeZero", "label", "include_zero"})
 public class DatadogYAxis {
 
 	private String scale;

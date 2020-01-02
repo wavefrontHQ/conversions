@@ -4,8 +4,11 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 public class GrafanaConverterTest {
 	@Test
@@ -15,7 +18,16 @@ public class GrafanaConverterTest {
 
 		GrafanaConverter grafanaConverter = new GrafanaConverter();
 		grafanaConverter.init(properties);
-		grafanaConverter.parse(new File("test_resources/grafana/grafana_dashboard.json"));
+
+
+		List<Path> paths = Files.list(new File("test_resources/grafana").toPath()).collect(Collectors.toList());
+		for (Path path : paths) {
+			File _file = path.toFile();
+
+			if (!_file.isDirectory()) {
+				grafanaConverter.parse(_file);
+			}
+		}
 	}
 
 	@Test
@@ -26,9 +38,16 @@ public class GrafanaConverterTest {
 
 		GrafanaConverter grafanaConverter = new GrafanaConverter();
 		grafanaConverter.init(properties);
-		grafanaConverter.parse(new File("test_resources/grafana/grafana_dashboard.json"));
 
+		List<Path> paths = Files.list(new File("test_resources/grafana").toPath()).collect(Collectors.toList());
+		for (Path path : paths) {
+			File _file = path.toFile();
 
+			if (!_file.isDirectory()) {
+				grafanaConverter.parse(_file);
+			}
+		}
+		
 		List models = grafanaConverter.convert();
 
 	}

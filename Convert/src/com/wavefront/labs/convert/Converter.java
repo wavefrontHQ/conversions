@@ -10,5 +10,6 @@ public interface Converter {
 
 	void parse(Object data) throws IOException;
 
-	List convert();
+	List<Object> convert();
+
 }

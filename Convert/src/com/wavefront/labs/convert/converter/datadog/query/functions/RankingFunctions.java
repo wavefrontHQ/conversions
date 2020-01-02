@@ -27,6 +27,7 @@ public class RankingFunctions {
 			case "'max'":
 				logger.warn(aggr + " has a fixed window of 1h on top function");
 				return "if(" + funcName + "(" + num + ", mmax(1h, " + function.getQuery() + ")), " + function.getQuery() + ")";
+            case "'sum'":
 			case "'area'":
 				logger.warn(aggr + " has a fixed window of 1h on top function");
 				return "if(" + funcName + "(" + num + ", msum(1h, " + function.getQuery() + ")), " + function.getQuery() + ")";
@@ -62,6 +63,7 @@ public class RankingFunctions {
 			case "'max'":
 				logger.warn(aggr + " has a fixed window of 1h on top function");
 				return "if(" + flipFuncName + "(" + num + ", " + funcName + "(" + (num + offset) + ", mmax(1h, " + function.getQuery() + ")), " + function.getQuery() + ")";
+            case "'sum'":
 			case "'area'":
 				logger.warn(aggr + " has a fixed window of 1h on top function");
 				return "if(" + flipFuncName + "(" + num + ", " + funcName + "(" + (num + offset) + ", msum(1h, " + function.getQuery() + ")), " + function.getQuery() + ")";

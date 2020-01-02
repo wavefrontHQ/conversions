@@ -2,6 +2,7 @@ package com.wavefront.labs.convert.converter.datadog;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wavefront.labs.convert.Utils;
+import com.wavefront.labs.convert.Utils.Tracker;
 import com.wavefront.labs.convert.converter.datadog.models.*;
 import com.wavefront.labs.convert.converter.datadog.query.Variable;
 import com.wavefront.rest.models.*;
@@ -20,25 +21,6 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 	private static final Logger logger = LogManager.getLogger(DatadogTimeboardConverter.class);
 
 	private DatadogTimeboard datadogTimeboard;
-	private DatadogExpressionBuilder expressionBuilder;
-
-	@Override
-	public void init(Properties properties) {
-		super.init(properties);
-
-		String expressionBuilderClass = properties.getProperty("convert.expressionBuilder", "");
-		if (!expressionBuilderClass.equals("")) {
-			try {
-				expressionBuilder = (DatadogExpressionBuilder) Class.forName(expressionBuilderClass).newInstance();
-			} catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
-				logger.error("Could not create instance of: " + expressionBuilderClass, e);
-				expressionBuilder = new DatadogExpressionBuilder();
-			}
-		} else {
-			expressionBuilder = new DatadogExpressionBuilder();
-		}
-		expressionBuilder.init(properties);
-	}
 
 	@Override
 	public void parse(Object data) throws IOException {
@@ -51,19 +33,10 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 
 	}
 
-	private void parseFromId(String id) {
-		String apiKey = properties.getProperty("datadog.api.key");
-		String applicationKey = properties.getProperty("datadog.application.key");
-		String url = "https://app.datadoghq.com/api/v1/dash/" + id;
-		url += "?api_key=" + apiKey;
-		url += "&application_key=" + applicationKey;
-
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			datadogTimeboard = mapper.convertValue(mapper.readTree(new URL(url)).get("dash"), DatadogTimeboard.class);
-		} catch (Exception e) {
-			logger.error("Could not get dashboard via API: " + id, e);
-		}
+	private void parseFromId(String id) throws IOException {
+		String url = getBaseApiUrl("dashboard/" + id);
+		ObjectMapper mapper = new ObjectMapper();
+		datadogTimeboard = mapper.convertValue(mapper.readTree(new URL(url)), DatadogTimeboard.class);
 	}
 
 	private void parseFromFile(File file) throws IOException {
@@ -72,7 +45,7 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 	}
 
 	@Override
-	public List convert() {
+	public List<Object> convert() {
 
 		logger.info("Converting Datadog Timeboard: " + datadogTimeboard.getId() + "/" + datadogTimeboard.getTitle());
 
@@ -83,31 +56,15 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 		dashboard.setName(datadogTimeboard.getTitle());
 		dashboard.setDescription(datadogTimeboard.getDescription());
 
-		DashboardSection dashboardSection = new DashboardSection();
-		dashboardSection.setName("Charts");
-
-		DashboardSectionRow dashboardSectionRow = new DashboardSectionRow();
-		List<DatadogGraph> graphs = datadogTimeboard.getGraphs();
-		for (int i = 0; i < graphs.size(); i++) {
-			if (i % 3 == 0 && i > 0) {
-				dashboardSection.addRowsItem(dashboardSectionRow);
-				dashboardSectionRow = new DashboardSectionRow();
-			}
-
-			Chart chart = createChartfromDatadogGraph(graphs.get(i));
-			dashboardSectionRow.addChartsItem(chart);
-		}
-
-		dashboardSection.addRowsItem(dashboardSectionRow);
-		dashboard.addSectionsItem(dashboardSection);
-
 		dashboard.setDisplayDescription(false);
 		dashboard.setDisplaySectionTableOfContents(false);
 		dashboard.setDisplayQueryParameters(false);
 
+		convertSectionFromWidgets(dashboard, datadogTimeboard.getWidgets(), "Charts");
+
 		HashMap<String, Variable> variablesMap = expressionBuilder.getVariablesMap();
 		if (variablesMap.size() > 0) {
-			Map<String, DashboardParameterValue> dashboardParameters = new HashMap();
+			Map<String, DashboardParameterValue> dashboardParameters = new HashMap<>();
 			for (Variable variable : variablesMap.values()) {
 				dashboardParameters.put(variable.getName(), createDashboardParameter(variable));
 			}
@@ -115,34 +72,79 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 			dashboard.setDisplayQueryParameters(true);
 		}
 
-		List models = new ArrayList();
+		List<Object> models = new ArrayList<>();
 		models.add(dashboard);
 		return models;
 	}
 
-	private Chart createChartfromDatadogGraph(DatadogGraph datadogGraph) {
+	private void convertSectionFromWidgets(Dashboard dashboard, List<DatadogWidget> widgets, String title) {
+		DashboardSection dashboardSection = new DashboardSection();
+		dashboardSection.setName(title);
+		dashboard.addSectionsItem(dashboardSection);
+
+		DashboardSectionRow dashboardSectionRow = null;
+
+		for (int i = 0; i < widgets.size(); i++) {
+			List<DatadogWidget> nestedWidgets = widgets.get(i).getDefinition().getWidgets();
+			if (nestedWidgets != null && nestedWidgets.size() > 0) {
+				if (i==0) {
+					dashboard.getSections().remove(dashboard.getSections().size()-1);
+				}
+				convertSectionFromWidgets(dashboard, nestedWidgets, widgets.get(i).getDefinition().getTitle());
+			} else {
+				if (i % 3 == 0) {
+					dashboardSectionRow = new DashboardSectionRow();
+					dashboardSection.addRowsItem(dashboardSectionRow);
+				}
+
+				try {
+					Chart chart = createChartfromDatadogWidget(widgets, i);
+					if (dashboardSectionRow != null) {
+						dashboardSectionRow.addChartsItem(chart);
+					}
+				} catch (Exception ex) {
+					logger.error("Exception while creating chart", ex);
+					Tracker.addToList("\"Chart Creation Exception\"", "Dashboard (" + datadogTimeboard.getTitle() + ") Chart (" + widgets.get(i).getDefinition().getTitle() + ")");
+					Tracker.increment("\"Chart Creation Exception Count\"");
+				}
+				if (!dashboard.getSections().contains(dashboardSection)) {
+					dashboard.addSectionsItem(dashboardSection);
+				}
+			}
+		}
+	}
+
+	private Chart createChartfromDatadogWidget(List<DatadogWidget> widgets, int i) {
+		DatadogWidget datadogWidget = widgets.get(i);
 		Chart chart = new Chart();
-		chart.setName(datadogGraph.getTitle());
+		String chartTitle = datadogWidget.getDefinition().getTitle();
+		if (chartTitle == null) {
+			chartTitle = "Chart-" + (i+1);
+		}
+		chart.setName(chartTitle);
 
 		chart.setSummarization(getChartSummarization("avg"));
 		ChartSettings chartSettings = new ChartSettings();
 		chartSettings.setType(TypeEnum.LINE);
 
-		if (datadogGraph.getDefinition() != null) {
-			DatadogGraphDefinition definition = datadogGraph.getDefinition();
+		if (datadogWidget.getDefinition() != null) {
+			DatadogGraphDefinition definition = datadogWidget.getDefinition();
+
+			String viz = definition.getType();
+
 			if (definition.getRequests() != null && definition.getRequests().size() > 0) {
-				String viz = definition.getViz();
 				String vizType = definition.getRequests().get(0).getType();
 				chartSettings.setType(getChartType(viz, vizType));
 
-				if (chartSettings.getType() == TypeEnum.SPARKLINE && definition.getPrecision() != null && !definition.getPrecision().equals("")) {
-					chartSettings.setSparklineDecimalPrecision(Integer.parseInt(definition.getPrecision()));
+				if (chartSettings.getType() == TypeEnum.SPARKLINE && definition.getTitle() != null && !definition.getTitle().equals("")) {
+					// TODO: Get the correct precision
+					chartSettings.setSparklineDecimalPrecision(Integer.parseInt("1"));
 				}
 
 				String aggregator = definition.getRequests().get(0).getAggregator();
 				chart.setSummarization(getChartSummarization(aggregator));
 
-				for (DatadogGraphRequest request : definition.getRequests()) {
+				for (DatadogGraphRequest request : definition.getRequestsAsList()) {
 					String[] queries = expressionBuilder.buildExpression(request.getQuery()).split(DatadogExpressionBuilder.QUERY_SEPARATOR_SPLIT);
 					for (String query : queries) {
 						ChartSourceQuery chartSourceQuery = new ChartSourceQuery();
@@ -151,6 +153,10 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 						chart.addSourcesItem(chartSourceQuery);
 					}
 				}
+			}
+
+			if ("image".equals(viz)) {
+				chartSettings.setPlainMarkdownContent("![alt text](" + definition.getUrl() + " \\\"Image\\\")");
 			}
 
 			DatadogYAxis yaxis = definition.getYaxis();
@@ -189,9 +195,15 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 	private DashboardParameterValue createDashboardParameter(Variable variable) {
 		DashboardParameterValue dashboardParameterValue = new DashboardParameterValue();
 
-		dashboardParameterValue.setParameterType(ParameterTypeEnum.SIMPLE);
+		dashboardParameterValue.setParameterType(ParameterTypeEnum.DYNAMIC);
 		dashboardParameterValue.setLabel(variable.getName());
-		dashboardParameterValue.setDefaultValue(variable.getValue());
+		dashboardParameterValue.setDynamicFieldType(DashboardParameterValue.DynamicFieldTypeEnum.TAG_KEY);
+		dashboardParameterValue.setQueryValue("ts(system.load15)");
+		//dashboardParameterValue.setDefaultValue(variable.getValue());
+		dashboardParameterValue.setDefaultValue("production");
+		//dashboardParameterValue.setTagKey(variable.getTagName());
+		dashboardParameterValue.setTagKey("cht_env");
+		dashboardParameterValue.putValuesToReadableStringsItem("Label", "production");
 
 		return dashboardParameterValue;
 	}
@@ -219,6 +231,8 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 				return TypeEnum.SPARKLINE;
 			case "toplist":
 				return TypeEnum.TABLE;
+			case "image":
+				return TypeEnum.MARKDOWN_WIDGET;
 			default:
 				logger.warn("Unsupported chart type: " + viz);
 				return TypeEnum.LINE;
@@ -231,8 +245,6 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 		}
 
 		switch (aggregator) {
-			case "avg":
-				return SummarizationEnum.MEAN;
 			case "min":
 				return SummarizationEnum.MIN;
 			case "max":
@@ -241,6 +253,7 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 				return SummarizationEnum.SUM;
 			case "last":
 				return SummarizationEnum.LAST;
+			case "avg":
 			default:
 				return SummarizationEnum.MEAN;
 		}

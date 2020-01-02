@@ -1,5 +1,6 @@
 package com.wavefront.labs.convert.writer;
 
+import com.wavefront.labs.convert.Utils.Tracker;
 import com.wavefront.labs.convert.Writer;
 import com.wavefront.rest.api.ApiClient;
 import com.wavefront.rest.api.ApiException;
@@ -61,17 +62,38 @@ public class WavefrontPublisher implements Writer {
 			} else {
 				dashboardApi.createDashboard(dashboard);
 			}
+			Tracker.increment("\"WavefrontPublisher::writeDashboard Successful (Count)\"");
 		} catch (ApiException e) {
 			logger.error("API Exception creating dashboard: " + dashboard.getName(), e);
+			Tracker.increment("\"WavefrontPublisher::writeDashboard Exception (Count)\"");
+			System.out.println(new com.wavefront.rest.api.JSON().serialize(dashboard));
 		}
 	}
 
 	@Override
 	public void writeAlert(Alert alert) {
+
+		AlertApi alertApi = new AlertApi(apiClient);
+		boolean exists = false;
+
 		try {
-			new AlertApi(apiClient).createAlert(alert);
+			alertApi.getAlert(alert.getId());
+			exists = true;
 		} catch (ApiException e) {
 			logger.error("API Exception creating alert: " + alert.getName(), e);
+		}
+
+		try {
+			if (exists) {
+				alertApi.updateAlert(alert.getId(), alert);
+			} else {
+				alertApi.createAlert(alert);
+			}
+			Tracker.increment("\"WavefrontPublisher::writeAlert Successful (Count)\"");
+		} catch (ApiException e) {
+			logger.error("API Exception creating alert: " + alert.getName(), e);
+			Tracker.increment("\"WavefrontPublisher::writeAlert Exception (Count)\"");
+			System.out.println(new com.wavefront.rest.api.JSON().serialize(alert));
 		}
 	}
 
@@ -90,7 +112,7 @@ public class WavefrontPublisher implements Writer {
 		boolean sendEmail = Boolean.getBoolean(properties.getProperty("convert.writer.publish.user.sendEmail", "false"));
 		try {
 
-			new UserApi(apiClient).createOrUpdateUser(sendEmail, user);
+			new UserApi(apiClient).createOrUpdateUser(user, sendEmail);
 		} catch (ApiException e) {
 			logger.error("API Exception creating user: " + user.getEmailAddress(), e);
 		}

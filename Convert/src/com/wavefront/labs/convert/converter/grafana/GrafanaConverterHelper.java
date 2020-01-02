@@ -263,7 +263,9 @@ public class GrafanaConverterHelper {
 				chartSourceQuery.setName(target.getRefId());
 
 				String query = target.getTargetFull() != null && !target.getTargetFull().equals("") ? target.getTargetFull() : target.getTarget();
-				chartSourceQuery.setQuery(expressionBuilder.buildExpression(query));
+				if (query != null && !query.equals("")) {
+					chartSourceQuery.setQuery(expressionBuilder.buildExpression(query));
+				}
 
 				chartSourceQueries.add(chartSourceQuery);
 			}

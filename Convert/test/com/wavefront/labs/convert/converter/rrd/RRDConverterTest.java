@@ -6,14 +6,25 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RRDConverterTest {
 
 	@Test
 	public void fullTest() throws IOException {
 		RRDConverter rrdConverter = new RRDConverter();
-		rrdConverter.parse(new File("test_resources/rrd/response_times_def.txt"));
+
+		List<Path> paths = Files.list(new File("test_resources/rrd").toPath()).collect(Collectors.toList());
+		for (Path path : paths) {
+			File _file = path.toFile();
+
+			if (!_file.isDirectory()) {
+				rrdConverter.parse(_file);
+			}
+		}
 
 		List models = rrdConverter.convert();
 

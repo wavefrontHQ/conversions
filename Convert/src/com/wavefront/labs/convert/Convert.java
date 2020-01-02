@@ -1,5 +1,6 @@
 package com.wavefront.labs.convert;
 
+import com.wavefront.labs.convert.Utils.Tracker;
 import com.wavefront.rest.models.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,21 +35,24 @@ public class Convert {
 			properties = new Properties();
 			properties.load(new FileReader(new File(args[0])));
 
-			List models = doConvert(args);
+			Converter converter = setupConverter(args);
+			List<Object> models = converter.convert();
 
 			doWrite(models);
 
-		} catch (IOException | InstantiationException | ClassNotFoundException | IllegalAccessException e) {
+		} catch (Exception e) {
 			logger.error("Fatal error in start.", e);
 		}
 
 		logger.info("Convert to Wavefront finished!");
+		LogManager.getLogger("results").info(Tracker.map);
 	}
 
-	private List doConvert(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, IOException {
-		logger.info("Start Conversion");
 
-		Converter converter = (Converter) Class.forName(properties.getProperty("convert.converter")).newInstance();
+	private Converter setupConverter(String[] args) throws ReflectiveOperationException, IOException {
+		logger.info("Setup Converter");
+
+		Converter converter = (Converter) Class.forName(properties.getProperty("convert.converter")).getConstructor().newInstance();
 		converter.init(properties);
 
 		String filename = null;
@@ -61,32 +65,36 @@ public class Convert {
 		if (filename == null || filename.equals("")) {
 			logger.info("No file/path to convert specified.");
 			converter.parse(null);
+
 		} else {
 			logger.info("Find file/path to convert: " + filename);
 			File file = new File(filename);
+
 			if (file.isDirectory()) {
 				List<Path> paths = Files.list(file.toPath()).collect(Collectors.toList());
 				for (Path path : paths) {
 					File _file = path.toFile();
+
 					if (!_file.isDirectory()) {
-						logger.info("Converting file: " + _file.getName());
+						logger.info("Parsing file: " + _file.getName());
 						converter.parse(_file);
 					}
 				}
+
 			} else {
-				logger.info("Converting file: " + file.getName());
+				logger.info("Parsing file: " + file.getName());
 				converter.parse(file);
 			}
 		}
 
-		return converter.convert();
+		return converter;
 	}
 
-	private void doWrite(List models) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+	private void doWrite(List<Object> models) throws ReflectiveOperationException {
 		logger.info("Start Writing");
 
 		String generatorName = properties.getProperty("convert.writer", "com.wavefront.labs.convert.writer.WavefrontPublisher");
-		Writer writer = (Writer) Class.forName(generatorName).newInstance();
+		Writer writer = (Writer) Class.forName(generatorName).getConstructor().newInstance();
 		writer.init(properties);
 
 		// tags can be separated by whitespace, comma, or semi-colon

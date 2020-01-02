@@ -29,7 +29,7 @@ public class RRDConverter implements Converter {
 	}
 
 	@Override
-	public void parseDashboards(Object data) throws IOException {
+	public void parse(Object data) throws IOException {
 
 		RRDContext rrdContext = new RRDContext(properties);
 		rrdContext.parse(data);
@@ -38,7 +38,7 @@ public class RRDConverter implements Converter {
 	}
 
 	@Override
-	public List convertDashboards() {
+	public List convert() {
 
 		ArrayList models = new ArrayList();
 
@@ -77,15 +77,5 @@ public class RRDConverter implements Converter {
 		}
 
 		return models;
-	}
-
-	@Override
-	public void parseAlerts(Object data) throws IOException {
-		throw new RuntimeException("Method not implemented");
-	}
-
-	@Override
-	public List convertAlerts() {
-		throw new RuntimeException("Method not implemented");
 	}
 }

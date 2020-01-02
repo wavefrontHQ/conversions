@@ -20,7 +20,7 @@ public class GrapherChartConverter extends AbstractGrapherConverter {
 	private GrapherRRDConverter rrdDefHostConverter;
 
 	@Override
-	public void parseDashboards(Object data) throws IOException {
+	public void parse(Object data) throws IOException {
 
 		if (!(data instanceof String)) {
 			logger.error("Invalid type to parse: " + data.getClass().getName());
@@ -40,40 +40,30 @@ public class GrapherChartConverter extends AbstractGrapherConverter {
 			rrdDefConverter = new GrapherRRDConverter();
 			rrdDefConverter.init(properties);
 			rrdDefConverter.setGrapherChart(grapherChart);
-			rrdDefConverter.parseDashboards(grapherChart.getRrdDef());
+			rrdDefConverter.parse(grapherChart.getRrdDef());
 		}
 
 		if (grapherChart.getRrdDefHost() != null) {
 			rrdDefHostConverter = new GrapherRRDConverter();
 			rrdDefHostConverter.init(properties);
 			rrdDefHostConverter.setGrapherChart(grapherChart);
-			rrdDefHostConverter.parseDashboards(grapherChart.getRrdDefHost());
+			rrdDefHostConverter.parse(grapherChart.getRrdDefHost());
 		}
 	}
 
 	@Override
-	public List convertDashboards() {
+	public List convert() {
 
 		ArrayList models = new ArrayList();
 
 		if (rrdDefConverter != null) {
-			models.addAll(rrdDefConverter.convertDashboards());
+			models.addAll(rrdDefConverter.convert());
 		}
 
 		if (rrdDefHostConverter != null) {
-			models.addAll(rrdDefHostConverter.convertDashboards());
+			models.addAll(rrdDefHostConverter.convert());
 		}
 
 		return models;
-	}
-
-	@Override
-	public void parseAlerts(Object data) throws IOException {
-		throw new RuntimeException("Method not implemented");
-	}
-
-	@Override
-	public List convertAlerts() {
-		throw new RuntimeException("Method not implemented");
 	}
 }

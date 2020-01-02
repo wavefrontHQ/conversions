@@ -2,6 +2,7 @@ package com.wavefront.labs.convert.writer;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.wavefront.labs.convert.Utils.Tracker;
 import com.wavefront.labs.convert.Writer;
 import com.wavefront.labs.convert.Utils;
 import com.wavefront.rest.models.Alert;
@@ -44,10 +45,10 @@ public class FolderWriter implements Writer {
 			file.mkdirs();
 
 			Files.write(Paths.get(file.getAbsolutePath() + File.separator + fileName), json.getBytes());
-			com.wavefront.labs.convert.utils.Tracker.increment("\"FolderWriter::writeDashboard Successful (Count)\"");
+			Tracker.increment("\"FolderWriter::writeDashboard Successful (Count)\"");
 		} catch (IOException e) {
 			logger.error("Error writing dashboard: " + dashboard.getName(), e);
-			com.wavefront.labs.convert.utils.Tracker.increment("\"FolderWriter::writeDashboard Exception (Count)\"");
+			Tracker.increment("\"FolderWriter::writeDashboard Exception (Count)\"");
 		}
 	}
 
@@ -62,8 +63,10 @@ public class FolderWriter implements Writer {
 			file.mkdirs();
 
 			Files.write(Paths.get(file.getAbsolutePath() + File.separator + fileName), json.getBytes());
+			Tracker.increment("\"FolderWriter::writeAlert Successful (Count)\"");
 		} catch (IOException e) {
 			logger.error("Error writing alert: " + alert.getName(), e);
+			Tracker.increment("\"FolderWriter::writeAlert Exception (Count)\"");
 		}
 
 	}
@@ -82,8 +85,10 @@ public class FolderWriter implements Writer {
 			file.mkdirs();
 
 			Files.write(Paths.get(file.getAbsolutePath() + File.separator + fileName), json.getBytes());
+			Tracker.increment("\"FolderWriter::writeMaintenanceWindow Successful (Count)\"");
 		} catch (IOException e) {
 			logger.error("Error writing maintenance window: " + maintenanceWindow.getTitle(), e);
+			Tracker.increment("\"FolderWriter::writeMaintenanceWindow Exception (Count)\"");
 		}
 	}
 
@@ -98,8 +103,10 @@ public class FolderWriter implements Writer {
 			file.mkdirs();
 
 			Files.write(Paths.get(file.getAbsolutePath() + File.separator + fileName), json.getBytes());
+			Tracker.increment("\"FolderWriter::writeUser Successful (Count)\"");
 		} catch (IOException e) {
 			logger.error("Error writing user: " + user.getEmailAddress(), e);
+			Tracker.increment("\"FolderWriter::writeUser Exception (Count)\"");
 		}
 
 	}

@@ -43,13 +43,7 @@ public class SetOperations {
 	}
 
 	public static String rev(Deque<String> queue) {
-		int count;
-		try {
-			count = Integer.parseInt(queue.pop());
-		} catch (NumberFormatException e) {
-			return "could not process count as integer";
-		}
-
+		int count = queue.size();
 		String[] values = new String[count];
 
 		for (int i = 0; i < count; i++) {

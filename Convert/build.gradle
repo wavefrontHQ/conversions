@@ -44,15 +44,10 @@ repositories
     mavenLocal ()
 }
 
-task (convertDashboard, dependsOn: 'classes', type: JavaExec) {
-   main = 'com.wavefront.labs.convert.Convert'
-   classpath = sourceSets.main.runtimeClasspath
-   args 'datadog.properties', 'dashboard'
-}
-
-task (convertAlert, dependsOn: 'classes', type: JavaExec) {
+task (convertDatadog, dependsOn: 'classes', type: JavaExec) {
     main = 'com.wavefront.labs.convert.Convert'
     classpath = sourceSets.main.runtimeClasspath
-    args 'datadog.properties', 'alert'
+    args 'datadog.properties', 'test_resources/datadog'
 }
+
 

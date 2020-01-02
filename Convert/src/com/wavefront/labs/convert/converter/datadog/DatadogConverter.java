@@ -1,73 +1,56 @@
 package com.wavefront.labs.convert.converter.datadog;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 public class DatadogConverter extends AbstractDatadogConverter {
+	private static final Logger logger = LogManager.getLogger(DatadogApiConverter.class);
 
 	private List<AbstractDatadogConverter> converters;
 
 	@Override
 	public void init(Properties properties) {
 		super.init(properties);
-		converters = new ArrayList();
+		converters = new ArrayList<>();
 	}
 
 	@Override
-	public void parseDashboards(Object data) throws IOException {
+	public void parse(Object data) throws IOException {
 
-		AbstractDatadogConverter converter;
+		AbstractDatadogConverter converter = null;
 
 		if (data == null) {
 			converter = new DatadogApiConverter();
 		} else {
-			converter = new DatadogTimeboardConverter();
+			if (Boolean.parseBoolean(properties.getProperty("datadog.timeboard.enabled", "true"))) {
+				converter = new DatadogTimeboardConverter();
+			} else if (Boolean.parseBoolean(properties.getProperty("datadog.alert.enabled", "true"))) {
+				converter = new DatadogAlertConverter();
+			} else {
+				logger.error("No resources are enabled for conversion!");
+			}
 		}
 
-		converter.init(properties);
-		converter.parseDashboards(data);
+		if (converter != null) {
+			converter.init(properties);
+			converter.parse(data);
 
-		converters.add(converter);
+			converters.add(converter);
+		}
 	}
 
 	@Override
-	public List convertDashboards() {
+	public List<Object> convert() {
 
-		List models = new ArrayList();
+		List<Object> models = new ArrayList<>();
 
 		for (AbstractDatadogConverter converter : converters) {
-			models.addAll(converter.convertDashboards());
-		}
-
-		return models;
-
-	}
-
-	@Override
-	public void parseAlerts(Object data) throws IOException {
-		AbstractDatadogConverter converter;
-
-		if (data == null) {
-			converter = new DatadogApiConverter();
-		} else {
-			converter = new DatadogTimeboardConverter();
-		}
-
-		converter.init(properties);
-		converter.parseAlerts(data);
-
-		converters.add(converter);
-	}
-
-	@Override
-	public List convertAlerts() {
-
-		List models = new ArrayList();
-
-		for (AbstractDatadogConverter converter : converters) {
-			models.addAll(converter.convertAlerts());
+			models.addAll(converter.convert());
 		}
 
 		return models;

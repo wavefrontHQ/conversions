@@ -1,6 +1,7 @@
 package com.wavefront.labs.convert.converter.datadog;
 
 import com.wavefront.labs.convert.DefaultExpressionBuilder;
+import com.wavefront.labs.convert.Utils.Tracker;
 import com.wavefront.labs.convert.converter.datadog.models.DatadogTemplateVariable;
 import com.wavefront.labs.convert.converter.datadog.query.DatadogFunction;
 import com.wavefront.labs.convert.converter.datadog.query.DatadogQuery;
@@ -224,7 +225,7 @@ public class DatadogExpressionBuilder extends DefaultExpressionBuilder {
 										}
 									}
 								}
-								com.wavefront.labs.convert.utils.Tracker.increment("\"Ignored Filters In Chart Count\"");
+								Tracker.increment("\"Ignored Filters In Chart Count\"");
 
 							} else {
 								String[] scopeParts = scope.split(":");

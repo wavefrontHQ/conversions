@@ -1,5 +1,6 @@
 package com.wavefront.labs.convert;
 
+import com.wavefront.labs.convert.Utils.Tracker;
 import com.wavefront.rest.models.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,7 +10,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -35,68 +35,66 @@ public class Convert {
 			properties = new Properties();
 			properties.load(new FileReader(new File(args[0])));
 
-			if (args.length > 1) {
-				if (args[1].indexOf("dashboard") >= 0) {
-					List models = doConvertDashboards(args);
-					doWriteDashboards(models);
-				}
+			Converter converter = setupConverter(args);
+			List<Object> models = converter.convert();
 
-				if (args[1].indexOf("alert") >= 0) {
-					List models = doConvertAlerts(args);
-					doWriteDashboards(models);
-				}
-			}
+			doWrite(models);
 
-		} catch (IOException | InstantiationException | ClassNotFoundException | IllegalAccessException e) {
+		} catch (Exception e) {
 			logger.error("Fatal error in start.", e);
 		}
 
 		logger.info("Convert to Wavefront finished!");
-		logger.error(com.wavefront.labs.convert.utils.Tracker.map);
+		LogManager.getLogger("results").info(Tracker.map);
 	}
 
-	private List doConvertDashboards(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, IOException {
-		logger.info("Start Conversion");
 
-		Converter converter = (Converter) Class.forName(properties.getProperty("convert.converter")).newInstance();
+	private Converter setupConverter(String[] args) throws ReflectiveOperationException, IOException {
+		logger.info("Setup Converter");
+
+		Converter converter = (Converter) Class.forName(properties.getProperty("convert.converter")).getConstructor().newInstance();
 		converter.init(properties);
 
 		String filename = null;
-		if (args.length > 2) {
-			filename = args[2];
+		if (args.length > 1) {
+			filename = args[1];
 		} else {
 			filename = properties.getProperty("convert.file");
 		}
 
 		if (filename == null || filename.equals("")) {
 			logger.info("No file/path to convert specified.");
-			converter.parseDashboards(null);
+			converter.parse(null);
+
 		} else {
 			logger.info("Find file/path to convert: " + filename);
 			File file = new File(filename);
+
 			if (file.isDirectory()) {
 				List<Path> paths = Files.list(file.toPath()).collect(Collectors.toList());
 				for (Path path : paths) {
 					File _file = path.toFile();
+
 					if (!_file.isDirectory()) {
-						logger.info("Converting file: " + _file.getName());
-						converter.parseDashboards(_file);
+						logger.info("Parsing file: " + _file.getName());
+						converter.parse(_file);
 					}
 				}
+
 			} else {
-				logger.info("Converting file: " + file.getName());
-				converter.parseDashboards(file);
+				logger.info("Parsing file: " + file.getName());
+				converter.parse(file);
 			}
 		}
 
-		return converter.convertDashboards();
+		return converter;
 	}
 
-	private void doWriteDashboards(List models) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+	private void doWrite(List<Object> models) throws ReflectiveOperationException {
 		logger.info("Start Writing");
 
 		String generatorName = properties.getProperty("convert.writer", "com.wavefront.labs.convert.writer.WavefrontPublisher");
-		Writer writer = (Writer) Class.forName(generatorName).newInstance();
+		Writer writer = (Writer) Class.forName(generatorName).getConstructor().newInstance();
 		writer.init(properties);
 
 		// tags can be separated by whitespace, comma, or semi-colon
@@ -142,55 +140,6 @@ public class Convert {
 				logger.error("Invalid model class: " + model.getClass().getName());
 			}
 		}
-	}
-
-	private List doConvertAlerts(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, IOException {
-		logger.info("Start Conversion");
-
-		Converter converter = (Converter) Class.forName(properties.getProperty("convert.converter")).newInstance();
-		converter.init(properties);
-
-		List<String> components = new ArrayList<String>();
-		if (args.length > 1) {
-			components = Arrays.asList(args[1].split(","));
-		}
-
-		String filename = null;
-		if (args.length > 2) {
-			filename = args[2];
-		} else {
-			filename = properties.getProperty("convert.file");
-		}
-
-		if (components.contains("alert")) {
-			if (filename == null || filename.equals("")) {
-				logger.info("No file/path to convert specified.");
-				converter.parseAlerts(null);
-			} else {
-				logger.info("Find file/path to convert: " + filename);
-				File file = new File(filename);
-				if (file.isDirectory()) {
-					List<Path> paths = Files.list(file.toPath()).collect(Collectors.toList());
-					for (Path path : paths) {
-						File _file = path.toFile();
-						if (!_file.isDirectory()) {
-							logger.info("Converting file: " + _file.getName());
-							converter.parseAlerts(_file);
-						}
-					}
-				} else {
-					logger.info("Converting file: " + file.getName());
-					converter.parseAlerts(file);
-				}
-			}
-			return converter.convertAlerts();
-		}
-
-		return null;
-	}
-
-	private void doWriteAlerts(List models) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-		logger.info("Start Writing");
 	}
 
 	private void addTags(WFTags wfTags, List<String> tags) {

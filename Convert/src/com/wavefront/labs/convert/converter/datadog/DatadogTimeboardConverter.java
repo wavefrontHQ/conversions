@@ -2,6 +2,7 @@ package com.wavefront.labs.convert.converter.datadog;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wavefront.labs.convert.Utils;
+import com.wavefront.labs.convert.Utils.Tracker;
 import com.wavefront.labs.convert.converter.datadog.models.*;
 import com.wavefront.labs.convert.converter.datadog.query.Variable;
 import com.wavefront.rest.models.*;
@@ -20,34 +21,9 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 	private static final Logger logger = LogManager.getLogger(DatadogTimeboardConverter.class);
 
 	private DatadogTimeboard datadogTimeboard;
-	private DatadogExpressionBuilder expressionBuilder;
-
-	private boolean parsingErrorFlag = false;
-
-	public boolean getParsingErrorFlag () {
-		return parsingErrorFlag;
-	}
 
 	@Override
-	public void init(Properties properties) {
-		super.init(properties);
-
-		String expressionBuilderClass = properties.getProperty("convert.expressionBuilder", "");
-		if (!expressionBuilderClass.equals("")) {
-			try {
-				expressionBuilder = (DatadogExpressionBuilder) Class.forName(expressionBuilderClass).newInstance();
-			} catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
-				logger.error("Could not create instance of: " + expressionBuilderClass, e);
-				expressionBuilder = new DatadogExpressionBuilder();
-			}
-		} else {
-			expressionBuilder = new DatadogExpressionBuilder();
-		}
-		expressionBuilder.init(properties);
-	}
-
-	@Override
-	public void parseDashboards(Object data) throws IOException {
+	public void parse(Object data) throws IOException {
 
 		if (data instanceof String) {
 			parseFromId(data.toString());
@@ -57,20 +33,10 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 
 	}
 
-	private void parseFromId(String id) {
-		String apiKey = properties.getProperty("datadog.api.key");
-		String applicationKey = properties.getProperty("datadog.application.key");
-		String url = "https://api.datadoghq.com/api/v1/dashboard/" + id;
-		url += "?api_key=" + apiKey;
-		url += "&application_key=" + applicationKey;
-
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			datadogTimeboard = mapper.convertValue(mapper.readTree(new URL(url)), DatadogTimeboard.class);
-		} catch (Exception e) {
-			parsingErrorFlag = true;
-			logger.error("Could not get dashboard via API: " + id, e);
-		}
+	private void parseFromId(String id) throws IOException {
+		String url = getBaseApiUrl("dashboard/" + id);
+		ObjectMapper mapper = new ObjectMapper();
+		datadogTimeboard = mapper.convertValue(mapper.readTree(new URL(url)), DatadogTimeboard.class);
 	}
 
 	private void parseFromFile(File file) throws IOException {
@@ -79,7 +45,7 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 	}
 
 	@Override
-	public List convertDashboards() {
+	public List<Object> convert() {
 
 		logger.info("Converting Datadog Timeboard: " + datadogTimeboard.getId() + "/" + datadogTimeboard.getTitle());
 
@@ -98,7 +64,7 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 
 		HashMap<String, Variable> variablesMap = expressionBuilder.getVariablesMap();
 		if (variablesMap.size() > 0) {
-			Map<String, DashboardParameterValue> dashboardParameters = new HashMap();
+			Map<String, DashboardParameterValue> dashboardParameters = new HashMap<>();
 			for (Variable variable : variablesMap.values()) {
 				dashboardParameters.put(variable.getName(), createDashboardParameter(variable));
 			}
@@ -106,7 +72,7 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 			dashboard.setDisplayQueryParameters(true);
 		}
 
-		List models = new ArrayList();
+		List<Object> models = new ArrayList<>();
 		models.add(dashboard);
 		return models;
 	}
@@ -133,11 +99,13 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 
 				try {
 					Chart chart = createChartfromDatadogWidget(widgets, i);
-					dashboardSectionRow.addChartsItem(chart);
+					if (dashboardSectionRow != null) {
+						dashboardSectionRow.addChartsItem(chart);
+					}
 				} catch (Exception ex) {
 					logger.error("Exception while creating chart", ex);
-					com.wavefront.labs.convert.utils.Tracker.addToList("\"Chart Creation Exception\"", "Dashboard (" + datadogTimeboard.getTitle() + ") Chart (" + widgets.get(i).getDefinition().getTitle() + ")");
-					com.wavefront.labs.convert.utils.Tracker.increment("\"Chart Creation Exception Count\"");
+					Tracker.addToList("\"Chart Creation Exception\"", "Dashboard (" + datadogTimeboard.getTitle() + ") Chart (" + widgets.get(i).getDefinition().getTitle() + ")");
+					Tracker.increment("\"Chart Creation Exception Count\"");
 				}
 				if (!dashboard.getSections().contains(dashboardSection)) {
 					dashboard.addSectionsItem(dashboardSection);
@@ -277,8 +245,6 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 		}
 
 		switch (aggregator) {
-			case "avg":
-				return SummarizationEnum.MEAN;
 			case "min":
 				return SummarizationEnum.MIN;
 			case "max":
@@ -287,18 +253,9 @@ public class DatadogTimeboardConverter extends AbstractDatadogConverter {
 				return SummarizationEnum.SUM;
 			case "last":
 				return SummarizationEnum.LAST;
+			case "avg":
 			default:
 				return SummarizationEnum.MEAN;
 		}
-	}
-
-	@Override
-	public void parseAlerts(Object data) throws IOException {
-		throw new RuntimeException("Method not implemented");
-	}
-
-	@Override
-	public List convertAlerts() {
-		throw new RuntimeException("Method not implemented");
 	}
 }

@@ -6,7 +6,10 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Root level="info">
+        <Logger name="results" level="info">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Root level="warn">
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>

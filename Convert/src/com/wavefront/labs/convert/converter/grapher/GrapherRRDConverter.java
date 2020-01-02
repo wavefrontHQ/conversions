@@ -28,7 +28,7 @@ public class GrapherRRDConverter extends RRDConverter {
 	}
 
 	@Override
-	public List convertDashboards() {
+	public List convert() {
 		ArrayList models = new ArrayList();
 		String notifications = properties.getProperty("grapher.alert.notifications", "test@alert.com");
 

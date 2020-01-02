@@ -20,9 +20,9 @@ public class GrapherConverterTest {
 
 		GrapherConverter grapherConverter = new GrapherConverter();
 		grapherConverter.init(properties);
-		grapherConverter.parseDashboards(new File("test_resources/grapher/lazlo_dashboards.json"));
+		grapherConverter.parse(new File("test_resources/grapher/lazlo_dashboards.json"));
 
-		List models = grapherConverter.convertDashboards();
+		List models = grapherConverter.convert();
 
 		ArrayList toGenerate = new ArrayList();
 		Dashboard dashboard = (Dashboard) models.get(1);

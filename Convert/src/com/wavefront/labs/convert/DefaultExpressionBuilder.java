@@ -27,10 +27,14 @@ public class DefaultExpressionBuilder implements ExpressionBuilder {
 		this.properties = properties;
 
 		try {
-			File nameProcessorFile = new File(properties.getProperty("convert.name.processor.file", "name-processor.yaml"));
-			ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-			nameProcessor = mapper.readValue(nameProcessorFile, new TypeReference<NameProcessor>() {
-			});
+			String nameProcessorFile = properties.getProperty("convert.name.processor.file", "");
+			if (!nameProcessorFile.equals("")) {
+				ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+				nameProcessor = mapper.readValue(new File(nameProcessorFile), new TypeReference<NameProcessor>() {
+				});
+			} else {
+				nameProcessor = new NameProcessor();
+			}
 		} catch (IOException e) {
 			logger.error("Error reading name processor file.", e);
 			nameProcessor = new NameProcessor();

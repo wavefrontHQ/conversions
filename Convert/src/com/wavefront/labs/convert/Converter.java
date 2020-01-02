@@ -8,11 +8,8 @@ public interface Converter {
 
 	void init(Properties properties);
 
-	void parseDashboards(Object data) throws IOException;
+	void parse(Object data) throws IOException;
 
-	List convertDashboards();
+	List<Object> convert();
 
-	void parseAlerts(Object data) throws IOException;
-
-	List convertAlerts();
 }

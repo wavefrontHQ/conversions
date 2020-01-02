@@ -15,51 +15,20 @@ public class DatadogAlertConverter extends AbstractDatadogConverter {
 	private static final Logger logger = LogManager.getLogger(DatadogAlertConverter.class);
 
 	private DatadogAlert datadogAlert;
-	private DatadogExpressionBuilder expressionBuilder;
-
-	private boolean parsingErrorFlag = false;
-
-	public boolean getParsingErrorFlag () {
-		return parsingErrorFlag;
-	}
 
 	@Override
-	public void init(Properties properties) {
-		super.init(properties);
-
-		String expressionBuilderClass = properties.getProperty("convert.expressionBuilder", "");
-		if (!expressionBuilderClass.equals("")) {
-			try {
-				expressionBuilder = (DatadogExpressionBuilder) Class.forName(expressionBuilderClass).newInstance();
-			} catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
-				logger.error("Could not create instance of: " + expressionBuilderClass, e);
-				expressionBuilder = new DatadogExpressionBuilder();
-			}
-		} else {
-			expressionBuilder = new DatadogExpressionBuilder();
+	public void parse(Object data) throws IOException {
+		if (data instanceof String) {
+			parseFromId(data.toString());
+		} else if (data instanceof File) {
+			parseFromFile((File) data);
 		}
-		expressionBuilder.init(properties);
 	}
 
-	@Override
-	public void parseDashboards(Object data) throws IOException {
-		throw new RuntimeException("Method not implemented");
-	}
-
-	private void parseFromId(String id) {
-		String apiKey = properties.getProperty("datadog.api.key");
-		String applicationKey = properties.getProperty("datadog.application.key");
-		String url = "https://api.datadoghq.com/api/v1/monitor/" + id;
-		url += "?api_key=" + apiKey;
-		url += "&application_key=" + applicationKey;
-
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			datadogAlert = mapper.convertValue(mapper.readTree(new URL(url)), DatadogAlert.class);
-		} catch (Exception e) {
-			parsingErrorFlag = true;
-			logger.error("Could not get dashboard via API: " + id, e);
-		}
+	private void parseFromId(String id) throws IOException {
+		String url = getBaseApiUrl("monitor/" + id);
+		ObjectMapper mapper = new ObjectMapper();
+		datadogAlert = mapper.convertValue(mapper.readTree(new URL(url)), DatadogAlert.class);
 	}
 
 	private void parseFromFile(File file) throws IOException {
@@ -68,21 +37,7 @@ public class DatadogAlertConverter extends AbstractDatadogConverter {
 	}
 
 	@Override
-	public List convertDashboards() {
-		throw new RuntimeException("Method not implemented");
-	}
-
-	@Override
-	public void parseAlerts(Object data) throws IOException {
-		if (data instanceof String) {
-			parseFromId(data.toString());
-		} else if (data instanceof File) {
-			parseFromFile((File) data);
-		}
-	}
-
-	@Override
-	public List convertAlerts() {
+	public List<Object> convert() {
 
 		logger.info("Converting Datadog Timeboard: " + datadogAlert.getId() + "/" + datadogAlert.getName());
 
@@ -91,7 +46,7 @@ public class DatadogAlertConverter extends AbstractDatadogConverter {
 		alert.setName(datadogAlert.getName());
 		alert.setCondition(expressionBuilder.buildExpression(datadogAlert.getQuery()));
 
-		List models = new ArrayList();
+		List<Object> models = new ArrayList<>();
 		models.add(alert);
 		return models;
 	}

@@ -1,6 +1,6 @@
 package com.wavefront.labs.convert.converter.grafana;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileReader;
@@ -48,7 +48,8 @@ public class GrafanaConverterTest {
 			}
 		}
 		
-		List models = grafanaConverter.convert();
+		List<Object> models = grafanaConverter.convert();
+		System.out.println(models.size());
 
 	}
 

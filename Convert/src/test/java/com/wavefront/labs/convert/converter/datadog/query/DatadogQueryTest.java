@@ -1,6 +1,6 @@
 package com.wavefront.labs.convert.converter.datadog.query;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DatadogQueryTest {
 

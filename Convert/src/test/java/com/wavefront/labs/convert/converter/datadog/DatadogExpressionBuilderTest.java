@@ -1,14 +1,14 @@
 package com.wavefront.labs.convert.converter.datadog;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Properties;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DatadogExpressionBuilderTest {
 	@Test
-	public void buildExpression() throws Exception {
+	public void buildExpression() {
 
 		Properties properties = new Properties();
 		properties.setProperty("datadog.replaceUnderscore", ".");

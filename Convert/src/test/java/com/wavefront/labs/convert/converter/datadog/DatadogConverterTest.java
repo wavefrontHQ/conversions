@@ -1,6 +1,6 @@
 package com.wavefront.labs.convert.converter.datadog;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileReader;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class DatadogConverterTest {
 	@Test
-	public void parseString() throws Exception {
+	public void parseString() {
 	}
 
 	@Test

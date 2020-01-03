@@ -2,7 +2,7 @@ package com.wavefront.labs.convert.converter.rrd;
 
 import com.wavefront.rest.models.Chart;
 import com.wavefront.rest.models.ChartSourceQuery;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class RRDConverterTest {
 			}
 		}
 
-		List models = rrdConverter.convert();
+		List<Object> models = rrdConverter.convert();
 
 		for (Object model : models) {
 			if (model instanceof Chart) {

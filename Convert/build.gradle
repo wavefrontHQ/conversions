@@ -8,10 +8,10 @@ version = "1.0-SNAPSHOT"
 sourceSets {
     main {
         java {
-            srcDir 'src'
+            srcDir 'src/main/java'
         }
         resources {
-            srcDir 'docs'
+            srcDir 'src/main/resources'
         }
     }
     test {

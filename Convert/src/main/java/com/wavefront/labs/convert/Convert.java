@@ -45,7 +45,7 @@ public class Convert {
 		}
 
 		logger.info("Convert to Wavefront finished!");
-		LogManager.getLogger("results").info(Tracker.map);
+		logger.info(Tracker.map);
 	}
 
 

@@ -1,3 +1,7 @@
+> **Warning**
+>
+> VMware has ended active development of this project. this repository will no longer be updated.
+
 Top level repository to hold projects related to converting other solutions to Wavefront
 
 ### Convert
